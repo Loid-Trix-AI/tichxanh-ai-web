@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "redefine": "TÁI ĐỊNH NGHĨA",
+    "value": "giá trị của",
+    "waste": "RÁC THẢI.",
+    "scroll": "Cuộn · Vuốt xuống"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "getRecycling": "Bắt đầu Tái chế",
+    "features": "Tính năng",
+    "reality": "Thực trạng",
+    "downloads": "Tải xuống"
+  },
+  "features": {
+    "label": "Trải nghiệm Cốt lõi",
+    "headline": "Bền vững, được thiết kế lại cho túi tiền của bạn.",
+    "edge": {
+      "title": "Quét Loid AI",
+      "body": "Phân loại trên thiết bị hơn 60 danh mục rác thải. Không qua đám mây, không rò rỉ ảnh — phản hồi dưới 80 ms."
+    },
+    "carbon": {
+      "title": "Theo dõi Carbon Gamified",
+      "body": "Mỗi lần quét sẽ phát triển khu rừng ảo của bạn. Xem CO₂ được tiết kiệm cộng dồn qua bạn bè và khu phố."
+    },
+    "rewards": {
+      "title": "Phần thưởng thực tế",
+      "body": "Đổi điểm tại các quán cà phê địa phương, vé xe buýt và các trạm nạp lại. Sự bền vững mua cho bạn cà phê."
+    }
+  },
+  "downloads": {
+    "ready": "Sẵn sàng chưa?",
+    "headline": "Tải ứng dụng TichXanh AI.",
+    "subheadline": "Bắt đầu quét ngay hôm nay.",
+    "body": "Tham gia cùng hàng ngàn người dùng đang tái định nghĩa giá trị của rác thải. Có sẵn trên iOS và Android.",
+    "button": "Tải xuống ngay"
+  },
+  "founder": {
+    "name": "Nhật Thành",
+    "title": "Người sáng lập",
+    "location": "Đồng Nai · Việt Nam",
+    "sectionLabel": "Tầm nhìn · Người sáng lập",
+    "quote": "Công nghệ chuyên sâu không nên chỉ ở trong phòng thí nghiệm. Nó thuộc về tay những người bình thường đang làm sạch hành tinh của chúng ta.",
+    "tagline": "Được xây dựng tại Việt Nam, quét toàn thế giới."
+  },
+  "reality": {
+    "stat1": "3,5 Triệu",
+    "stat1Label": "Tấn Rác Thải Nhựa",
+    "stat1Sub": "Mỗi năm",
+    "stat2": "1.500+ Tấn",
+    "stat2Label": "Thải ra đại dương mỗi ngày",
+    "guideTitle": "Hướng dẫn Phân loại 5 Cấp",
+    "categories": [
+      { "name": "Rác Hữu cơ", "label": "Xanh lá" },
+      { "name": "Tái chế được", "label": "Xanh dương" },
+      { "name": "Rác Nhựa", "label": "Vàng" },
+      { "name": "Rác Nguy hại", "label": "Đỏ" },
+      { "name": "Rác khác", "label": "Xám" }
+    ]
+  }
+}

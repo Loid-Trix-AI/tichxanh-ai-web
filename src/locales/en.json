@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "redefine": "REDEFINE",
+    "value": "the value of",
+    "waste": "WASTE.",
+    "scroll": "Scroll · Swipe Down"
+  },
+  "nav": {
+    "home": "Home",
+    "getRecycling": "Get Recycling",
+    "features": "Features",
+    "reality": "Reality",
+    "downloads": "Downloads"
+  },
+  "features": {
+    "label": "The Core Experience",
+    "headline": "Sustainability, re-engineered for your pocket.",
+    "edge": {
+      "title": "Loid AI Scanning",
+      "body": "On-device classification of 60+ waste categories. No cloud round-trip, no leaked photos — answers in under 80 ms."
+    },
+    "carbon": {
+      "title": "Gamified Carbon Tracking",
+      "body": "Every scan grows your virtual forest. Watch CO₂ saved compound across friends, neighborhoods, and cities."
+    },
+    "rewards": {
+      "title": "Real-world Rewards",
+      "body": "Redeem points with local cafes, transit passes, and refill stations. Sustainability that buys you coffee."
+    }
+  },
+  "downloads": {
+    "ready": "Ready to start?",
+    "headline": "Get the TichXanh AI app.",
+    "subheadline": "Start scanning today.",
+    "body": "Join thousands of users already redefining the value of waste. Available for iOS and Android.",
+    "button": "Download Now"
+  },
+  "founder": {
+    "name": "Nhật Thành",
+    "title": "Founder",
+    "location": "Đồng Nai · Vietnam",
+    "sectionLabel": "The Visionary · Founder",
+    "quote": "Deep tech shouldn't stay in labs. It belongs in the hands of everyday people cleaning our planet.",
+    "tagline": "Built in Vietnam, scanning the world."
+  },
+  "reality": {
+    "stat1": "3.5 Million",
+    "stat1Label": "Tons of Plastic Waste",
+    "stat1Sub": "Annually",
+    "stat2": "1,500+ Tons",
+    "stat2Label": "Leaked Daily into our oceans",
+    "guideTitle": "The 5-Level Sorting Guide",
+    "categories": [
+      { "name": "Organic Waste", "label": "Green" },
+      { "name": "Recyclables", "label": "Blue" },
+      { "name": "Plastic Waste", "label": "Yellow" },
+      { "name": "Hazardous Waste", "label": "Red" },
+      { "name": "Other Waste", "label": "Gray" }
+    ]
+  }
+}
