@@ -2,6 +2,7 @@
 import { Download, ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "@/shared/hooks/use-translation";
+import { siteConfig } from "@/config/site";
 
 export default function QRDownloadBlock() {
   const { t } = useTranslation();
@@ -36,7 +37,10 @@ export default function QRDownloadBlock() {
         </div>
 
         <div className="relative aspect-square w-40 shrink-0 rounded-3xl border border-white/20 bg-white p-3 shadow-2xl md:w-48">
-          <div className="h-full w-full bg-[url('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tichxanh.ai/download')] bg-cover opacity-90 grayscale contrast-125" />
+          <div
+            className="h-full w-full bg-cover opacity-90 grayscale contrast-125"
+            style={{ backgroundImage: `url('${siteConfig.getQrCodeUrl()}')` }}
+          />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="h-10 w-10 rounded-xl bg-background p-1.5 shadow-xl">
               <div className="h-full w-full bg-primary rounded-[4px]" />

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Cpu } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 const Social = ({ d }: { d: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
@@ -26,45 +27,54 @@ export default function SiteFooter() {
       >
         <div>
           <div className="font-display text-2xl font-bold tracking-tight">
-            TichXanh<span className="text-primary">.</span>AI
+            {siteConfig.shortName}<span className="text-primary">.</span>AI
           </div>
           <p className="mt-2 max-w-sm text-sm text-foreground/60">
-            An Loid AI eco-system for waste classification, gamified carbon tracking, and real-world
-            rewards.
+            {siteConfig.description}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
           <a
-            href="#"
+            href={siteConfig.socials.github}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="GitHub"
             className="hover-lift grid h-10 w-10 place-items-center rounded-full border border-foreground/15 transition-colors hover:bg-foreground/5"
           >
             <Social d={GH} />
           </a>
           <a
-            href="#"
+            href={siteConfig.socials.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Twitter / X"
             className="hover-lift grid h-10 w-10 place-items-center rounded-full border border-foreground/15 transition-colors hover:bg-foreground/5"
           >
             <Social d={TW} />
           </a>
           <a
-            href="#"
+            href={siteConfig.socials.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="LinkedIn"
             className="hover-lift grid h-10 w-10 place-items-center rounded-full border border-foreground/15 transition-colors hover:bg-foreground/5"
           >
             <Social d={LI} />
           </a>
           <span className="ml-2 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs text-primary">
-            <Cpu className="h-3.5 w-3.5" /> Built with Loid AI
+            <Cpu className="h-3.5 w-3.5" /> Built with {siteConfig.poweredBy}
           </span>
         </div>
       </motion.div>
 
       <div className="mx-auto mt-10 flex max-w-7xl items-center justify-between text-xs text-foreground/40">
-        <span>© 2026 TichXanh AI</span>
-        <span>Privacy · Terms</span>
+        <span>© {siteConfig.year} {siteConfig.name}</span>
+        <span>
+          <a href={siteConfig.links.privacy} className="hover:text-foreground transition-colors">Privacy</a>
+          {" · "}
+          <a href={siteConfig.links.terms} className="hover:text-foreground transition-colors">Terms</a>
+        </span>
       </div>
     </footer>
   );
