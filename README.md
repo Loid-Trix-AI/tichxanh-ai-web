@@ -1,11 +1,11 @@
-# GreenQuest — Web App
+# Tích Xanh AI — Web App
 
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-Web dashboard của **GreenQuest (Tích Xanh)** — ứng dụng gamification phân loại rác dành cho học sinh Đồng Nai.
+Web dashboard của **Tích Xanh AI** — ứng dụng gamification phân loại rác dành cho học sinh Đồng Nai.
 
 ## Tech Stack
 
