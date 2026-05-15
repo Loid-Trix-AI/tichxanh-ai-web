@@ -115,7 +115,7 @@ export default function BentoFeatures() {
               whileHover={{ rotateY: 10, rotateX: 5, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
             >
-              <TreeMock />
+              <TreeMock t={t} />
             </motion.div>
           </div>
         </div>
@@ -166,7 +166,7 @@ export default function BentoFeatures() {
   );
 }
 
-function TreeMock() {
+function TreeMock({ t }: { t: any }) {
   const [level, setLevel] = useState(0);
 
   useEffect(() => {
@@ -259,11 +259,11 @@ function TreeMock() {
       {/* Stats Overlay */}
       <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3 z-20">
         <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
-           <p className="text-[10px] uppercase tracking-widest text-white/50">Recycled</p>
+           <p className="text-[10px] uppercase tracking-widest text-white/50">{t.treeMock.recycled}</p>
            <p className="font-display mt-1 text-2xl text-foreground"><AnimatedCounter value={level * 120} /> g</p>
         </div>
         <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
-           <p className="text-[10px] uppercase tracking-widest text-white/50">Tree Lvl</p>
+           <p className="text-[10px] uppercase tracking-widest text-white/50">{t.treeMock.treeLvl}</p>
            <p className="font-display mt-1 text-2xl text-primary">{level + 1} / 5</p>
         </div>
       </div>

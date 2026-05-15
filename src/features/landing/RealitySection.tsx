@@ -104,7 +104,7 @@ export default function RealitySection() {
                     <div>
                       <span className="text-xl font-bold uppercase tracking-wider text-foreground">{item.label}</span>
                       <p className="text-sm text-muted-foreground mt-1 font-display">
-                        <span className="text-primary font-bold"><AnimatedCounter value={item.total} /></span> {t.reality.stat1Sub}
+                        <span className="text-primary font-bold inline-block min-w-[3ch] text-right tabular-nums"><AnimatedCounter value={item.total} /></span> {t.reality.stat1Sub}
                       </p>
                     </div>
                     <div className="flex gap-4 text-xs font-semibold uppercase mt-3 md:mt-0 tracking-widest">
@@ -115,18 +115,20 @@ export default function RealitySection() {
                   {/* Segmented Progress Bar */}
                   <div className="h-6 w-full flex overflow-hidden rounded-full bg-foreground/5 relative shadow-inner">
                     <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${item.recycled}%` }}
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
                       transition={{ duration: 1.5, delay: 0.2 + idx * 0.2, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 relative flex items-center justify-center overflow-hidden"
+                      className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 relative flex items-center justify-center overflow-hidden origin-left"
+                      style={{ width: `${item.recycled}%` }}
                     >
                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==')] opacity-50 mix-blend-overlay" />
                     </motion.div>
                     <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${item.landfill}%` }}
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
                       transition={{ duration: 1.5, delay: 0.2 + idx * 0.2, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-red-500/80 to-red-600/80 relative overflow-hidden"
+                      className="h-full bg-gradient-to-r from-red-500/80 to-red-600/80 relative overflow-hidden origin-left"
+                      style={{ width: `${item.landfill}%` }}
                     >
                         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-30" />
                     </motion.div>

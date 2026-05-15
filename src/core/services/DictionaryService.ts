@@ -16,6 +16,7 @@ export interface GalleryItem {
 export interface Dictionary {
   hero: { redefine: string; value: string; waste: string; scroll: string };
   nav: { home: string; getRecycling: string; features: string; reality: string; downloads: string };
+  treeMock: { recycled: string; treeLvl: string };
   features: {
     label: string;
     headline: string;
