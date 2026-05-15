@@ -54,7 +54,7 @@ export default function HeroSection() {
         <CanvasScrollytelling
           frames={frames}
           pinTargetRef={sectionRef}
-          scrollDistance="+=200%"
+          scrollDistance="+=150%"
           onProgress={setProgress}
           className="h-full w-full"
         />
