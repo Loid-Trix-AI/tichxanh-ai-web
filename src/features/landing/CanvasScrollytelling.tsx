@@ -154,7 +154,7 @@ export default function CanvasScrollytelling({
       start: "top top",
       end: scrollDistance,
       pin: true,
-      scrub: 0.5,
+      scrub: 1,
       onUpdate: (self) => {
         state.progress = self.progress;
         if (!state.ticking) {

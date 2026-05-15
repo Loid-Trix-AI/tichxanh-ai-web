@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-} from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TranslationProvider } from "@/core/TranslationProvider";
 
 function GlobalPreloader() {
@@ -114,6 +112,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootComponent() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Initialize Lenis for premium smooth scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1.1,
+      lerp: 0.1,
+    });
+
+    // Synchronize ScrollTrigger with Lenis
+    lenis.on("scroll", ScrollTrigger.update);
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+
+    // Ensure GSAP ticker is synced
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <TranslationProvider>
       <GlobalPreloader />
