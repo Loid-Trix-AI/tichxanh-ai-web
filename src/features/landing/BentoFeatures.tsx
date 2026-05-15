@@ -63,7 +63,7 @@ export default function BentoFeatures() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!sectionRef.current || !phoneRef.current) return;
+    if (!sectionRef.current || !treeRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
