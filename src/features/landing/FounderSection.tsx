@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import founderImg from "@/assets/founder.jpg";
 import { useTranslation } from "@/shared/hooks/use-translation";
 
 export default function FounderSection() {
@@ -69,7 +68,7 @@ export default function FounderSection() {
         <div className="founder-float relative">
           <div className="absolute -inset-4 -z-10 rounded-3xl bg-current/5" />
           <img
-            src={founderImg}
+            src="/images/founder.jpg"
             alt={`Portrait of ${t.founder.name}, TichXanh AI founder`}
             width={1024}
             height={1024}

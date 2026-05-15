@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "@/shared/hooks/use-translation";
 import CanvasScrollytelling from "./CanvasScrollytelling";
 
-const FRAME_COUNT = 60;
+const FRAME_COUNT = 96;
 
 export default function HeroSection() {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ export default function HeroSection() {
     () =>
       Array.from(
         { length: FRAME_COUNT },
-        (_, i) => `/seq/frame_${String(i + 1).padStart(4, "0")}.webp`,
+        (_, i) => `/seq/processed_Bottle_cracks_morphing_into_plastic_202605151159_${String(i + 1).padStart(3, "0")}.jpg`,
       ),
     [],
   );
@@ -24,8 +24,8 @@ export default function HeroSection() {
   const scanProgress = Math.max(0, Math.min(1, (progress - 0.2) / 0.2)); // 0.2 -> 0.4
   const checkmarkProgress = Math.max(0, Math.min(1, (progress - 0.4) / 0.1)); // 0.4 -> 0.5
 
-  // Climax window: color blooms in between 0.45 -> 0.65
-  const bloom = Math.max(0, Math.min(1, (progress - 0.45) / 0.2));
+  // Color blooms immediately upon scrolling (0 -> 0.15)
+  const bloom = Math.max(0, Math.min(1, progress / 0.15));
   const grayscale = 1 - bloom;
   const treeScale = Math.max(0, Math.min(1, (progress - 0.55) / 0.35));
 
@@ -45,7 +45,7 @@ export default function HeroSection() {
         <CanvasScrollytelling
           frames={frames}
           pinTargetRef={sectionRef}
-          scrollDistance="+=320%"
+          scrollDistance="+=200%"
           onProgress={setProgress}
           className="h-full w-full"
         />
@@ -135,8 +135,9 @@ export default function HeroSection() {
         <h1
           className="font-display text-center text-[14vw] font-bold leading-[0.88] sm:text-[10vw] md:text-[8.5vw]"
           style={{
-            opacity: 1 - Math.min(1, progress * 1.3),
+            opacity: 1 - Math.min(1, progress * 10),
             transform: `translateY(${progress * -40}px)`,
+            filter: `blur(${progress * 20}px)`,
           }}
         >
           {t.hero.redefine}
@@ -145,7 +146,10 @@ export default function HeroSection() {
           <br />
           <span className="text-[oklch(0.8_0.2_145)] text-glow-sage">{t.hero.waste}</span>
         </h1>
-        <div className="flex w-full flex-col items-center gap-3">
+        <div 
+          className="flex w-full flex-col items-center gap-3"
+          style={{ opacity: 1 - Math.min(1, progress * 10) }}
+        >
           <div className="h-[1px] w-32 bg-foreground/20" />
           <p className="text-xs uppercase tracking-[0.4em] text-foreground/50">{t.hero.scroll}</p>
         </div>

@@ -121,7 +121,7 @@ export default function CanvasScrollytelling({
       start: "top top",
       end: scrollDistance,
       pin: true,
-      scrub: 0.5,
+      scrub: 1.5,
       onUpdate: (self) => {
         const p = self.progress;
         const next = Math.min(frames.length - 1, Math.floor(p * frames.length));
