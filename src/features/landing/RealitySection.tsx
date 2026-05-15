@@ -43,6 +43,7 @@ export default function RealitySection() {
       id="reality"
       ref={sectionRef}
       className="relative z-20 min-h-screen w-full bg-background py-24 overflow-hidden rounded-t-[3rem] border-t border-white/10 shadow-[0_-30px_60px_rgba(0,0,0,0.8)]"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "1000px" }}
     >
       <div className="container mx-auto px-6">
         {/* Brutalist Stats */}
@@ -127,7 +128,7 @@ export default function RealitySection() {
                     </div>
                   </div>
                   {/* Segmented Progress Bar */}
-                  <div className="h-6 w-full flex overflow-hidden rounded-full bg-foreground/5 relative shadow-inner">
+                  <div className="h-6 w-full flex overflow-hidden rounded-full bg-foreground/5 relative border border-white/5">
                     <motion.div
                       variants={{
                         hidden: { scaleX: 0 },

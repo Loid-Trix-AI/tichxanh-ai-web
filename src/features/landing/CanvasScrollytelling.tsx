@@ -49,9 +49,18 @@ export default function CanvasScrollytelling({
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const images: HTMLImageElement[] = [];
-    const state = { frame: 0, progress: 0, ticking: false };
+    const state = { frame: 0, progress: 0, ticking: false, isVisible: true };
     let raf = 0;
     let mounted = true;
+
+    // Visibility Observer to save resources
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        state.isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(canvas);
 
     function resize() {
       if (!canvas) return;
@@ -81,7 +90,7 @@ export default function CanvasScrollytelling({
     }
 
     function render(progress?: number) {
-      if (!ctx || !canvas) return;
+      if (!ctx || !canvas || !state.isVisible) return;
       const cw = canvas.width;
       const ch = canvas.height;
 
@@ -173,6 +182,7 @@ export default function CanvasScrollytelling({
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       trigger.kill();
+      observer.disconnect();
     };
   }, [frames, pinTargetRef, scrollDistance, onProgress]);
 
