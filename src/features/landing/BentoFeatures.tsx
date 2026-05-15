@@ -177,7 +177,18 @@ function TreeMock() {
   }, []);
 
   return (
-    <div className="relative aspect-[9/16] w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-[oklch(0.24_0.02_155)] to-[oklch(0.16_0.01_155)] p-6 shadow-[0_60px_120px_-40px_rgb(0_0_0/0.7)] overflow-hidden flex flex-col items-center justify-end pb-28">
+    <div className="relative aspect-[9/19] w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-[oklch(0.24_0.02_155)] to-[oklch(0.16_0.01_155)] p-3 shadow-[0_60px_120px_-40px_rgb(0_0_0/0.7)] isolation-auto" style={{ clipPath: "inset(0 round 2.5rem)" }}>
+      {/* Notch */}
+      <div className="absolute left-1/2 top-3 z-30 h-5 w-24 -translate-x-1/2 rounded-full bg-black/80" />
+      
+      {/* Screen */}
+      <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-[oklch(0.13_0.01_155)] flex flex-col items-center justify-end pb-24">
+        {/* Faux App Header */}
+        <div className="absolute top-0 left-0 right-0 p-5 z-20 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/50">
+          <span>09:41</span>
+          <span>· · ·</span>
+        </div>
+
       {/* Animated Drop Waste */}
       <AnimatePresence mode="popLayout">
         <motion.div
@@ -246,15 +257,16 @@ function TreeMock() {
       </motion.div>
 
       {/* Stats Overlay */}
-      <div className="absolute bottom-6 left-6 right-6 grid grid-cols-2 gap-4">
+      <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3 z-20">
         <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
            <p className="text-[10px] uppercase tracking-widest text-white/50">Recycled</p>
-           <p className="font-display mt-1 text-2xl text-foreground"><AnimatedCounter value={level * 120} /> kg</p>
+           <p className="font-display mt-1 text-2xl text-foreground"><AnimatedCounter value={level * 120} /> g</p>
         </div>
         <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
            <p className="text-[10px] uppercase tracking-widest text-white/50">Tree Lvl</p>
            <p className="font-display mt-1 text-2xl text-primary">{level + 1} / 5</p>
         </div>
+      </div>
       </div>
     </div>
   );

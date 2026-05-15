@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslation } from "@/shared/hooks/use-translation";
 import { Apple, Recycle, Package, Skull, Trash2 } from "lucide-react";
 
@@ -36,11 +38,35 @@ const CATEGORY_ICONS = [Apple, Recycle, Package, Skull, Trash2];
 
 export default function RealitySection() {
   const { t } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !sectionRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // 3D Overlay effect: Push Hero down and scale it back as this section scrolls up
+      gsap.to("#hero", {
+        yPercent: 30,
+        scale: 0.95,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="reality"
-      className="relative min-h-screen w-full bg-background py-24 overflow-hidden"
+      ref={sectionRef}
+      className="relative z-20 min-h-screen w-full bg-background py-24 overflow-hidden rounded-t-[3rem] border-t border-white/10 shadow-[0_-30px_60px_rgba(0,0,0,0.8)]"
     >
       <div className="container mx-auto px-6">
         {/* Brutalist Stats */}
