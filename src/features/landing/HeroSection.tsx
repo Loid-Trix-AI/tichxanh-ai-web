@@ -77,9 +77,9 @@ export default function HeroSection() {
         <h1
           className="font-display text-center text-[11vw] font-bold leading-[0.88] sm:text-[8vw] md:text-[6.5vw]"
           style={{
-            opacity: 1 - Math.min(1, progress * 10),
+            opacity: 1 - Math.min(1, progress * 20),
             transform: `translateY(${progress * -40}px)`,
-            filter: `blur(${progress * 20}px)`,
+            filter: `blur(${progress * 40}px)`,
           }}
         >
           {t.hero.redefine}
@@ -90,7 +90,7 @@ export default function HeroSection() {
         </h1>
         <div
           className="flex w-full flex-col items-center gap-3"
-          style={{ opacity: 1 - Math.min(1, progress * 10) }}
+          style={{ opacity: 1 - Math.min(1, progress * 20) }}
         >
           <div className="h-[1px] w-32 bg-foreground/20" />
           <p className="text-xs uppercase tracking-[0.4em] text-foreground/50">{t.hero.scroll}</p>

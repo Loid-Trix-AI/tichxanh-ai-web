@@ -49,7 +49,7 @@ export default function CanvasScrollytelling({
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const images: HTMLImageElement[] = [];
-    const state = { frame: 0 };
+    const state = { frame: 0, progress: 0, ticking: false };
     let raf = 0;
     let mounted = true;
 
@@ -58,17 +58,10 @@ export default function CanvasScrollytelling({
       const { clientWidth: w, clientHeight: h } = canvas;
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
-      render();
+      render(state.progress);
     }
 
-    function render() {
-      if (!ctx || !canvas) return;
-      const img = images[state.frame];
-      if (!img || !img.complete) return;
-      const cw = canvas.width;
-      const ch = canvas.height;
-      ctx.clearRect(0, 0, cw, ch);
-      // cover-fit
+    function drawCover(img: HTMLImageElement, cw: number, ch: number) {
       const ir = img.width / img.height;
       const cr = cw / ch;
       let dw = cw,
@@ -77,14 +70,54 @@ export default function CanvasScrollytelling({
         dy = 0;
       if (ir > cr) {
         dh = ch;
-        dw = ch * ir;
-        dx = (cw - dw) / 2;
+        dw = Math.floor(ch * ir);
+        dx = Math.floor((cw - dw) / 2);
       } else {
         dw = cw;
-        dh = cw / ir;
-        dy = (ch - dh) / 2;
+        dh = Math.floor(cw / ir);
+        dy = Math.floor((ch - dh) / 2);
       }
-      ctx.drawImage(img, dx, dy, dw, dh);
+      ctx!.drawImage(img, dx, dy, dw, dh);
+    }
+
+    function render(progress?: number) {
+      if (!ctx || !canvas) return;
+      const cw = canvas.width;
+      const ch = canvas.height;
+
+      if (progress === undefined) {
+        const img = images[state.frame];
+        if (!img || !img.complete) return;
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.globalAlpha = 1;
+        drawCover(img, cw, ch);
+        return;
+      }
+
+      // Smooth Frame Blending for low-fps sequences
+      const exactFrame = progress * (frames.length - 1);
+      const frame1 = Math.floor(exactFrame);
+      const frame2 = Math.min(frames.length - 1, frame1 + 1);
+      const alpha = exactFrame - frame1;
+
+      const img1 = images[frame1];
+      const img2 = images[frame2];
+
+      if (!img1 || !img1.complete) return;
+
+      ctx.clearRect(0, 0, cw, ch);
+      
+      // Draw base frame
+      ctx.globalAlpha = 1;
+      drawCover(img1, cw, ch);
+
+      // Blend next frame on top
+      if (alpha > 0.01 && img2 && img2.complete && frame1 !== frame2) {
+        ctx.globalAlpha = alpha;
+        drawCover(img2, cw, ch);
+      }
+      
+      ctx.globalAlpha = 1;
     }
 
     // Preload + decode in parallel; decode() avoids first-paint jank.
@@ -123,13 +156,15 @@ export default function CanvasScrollytelling({
       pin: true,
       scrub: 1.5,
       onUpdate: (self) => {
-        const p = self.progress;
-        const next = Math.min(frames.length - 1, Math.floor(p * frames.length));
-        if (next !== state.frame) {
-          state.frame = next;
-          render();
+        state.progress = self.progress;
+        if (!state.ticking) {
+          state.ticking = true;
+          raf = requestAnimationFrame(() => {
+            render(state.progress);
+            state.ticking = false;
+          });
         }
-        if (onProgress) onProgress(p);
+        if (onProgress) onProgress(self.progress);
       },
     });
 
