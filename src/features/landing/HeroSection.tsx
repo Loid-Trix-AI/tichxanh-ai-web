@@ -38,7 +38,6 @@ export default function HeroSection() {
       ref={sectionRef}
       id="hero"
       className="relative z-10 h-screen w-full overflow-hidden bg-background"
-      style={{ willChange: "transform" }}
     >
       {/* Canvas layer — grayscale→color bloom + push-back compositing */}
       <div

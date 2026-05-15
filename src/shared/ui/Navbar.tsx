@@ -10,10 +10,9 @@ import { X, Menu } from "lucide-react";
 const NavLink = ({ href, label }: { href: string; label: string }) => (
   <a
     href={href}
-    className="group relative text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+    className="group relative inline-flex items-center text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
   >
     {label}
-    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
   </a>
 );
 
@@ -139,10 +138,9 @@ export const Navbar = () => {
                 <button
                   key={item.label}
                   onClick={() => handleHashNav(item)}
-                  className="group relative w-fit text-left text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  className="group relative flex items-center w-fit text-left text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {item.label}
-                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
                 </button>
               ))}
               <Link
