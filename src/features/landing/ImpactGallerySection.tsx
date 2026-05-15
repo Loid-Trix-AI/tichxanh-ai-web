@@ -3,56 +3,56 @@ import { motion } from "framer-motion";
 import { HackerText } from "@/shared/ui/HackerText";
 import { useTranslation } from "@/shared/hooks/use-translation";
 
-const GALLERY_ITEMS = [
-  {
-    id: 1,
-    title: "Community Action",
-    desc: "12,000+ students organizing weekly cleanups.",
-    img: "https://images.unsplash.com/photo-1618477461853-cf6ed80fabe9?auto=format&fit=crop&q=80&w=800",
-    colSpan: "md:col-span-8",
-    rowSpan: "md:row-span-2",
-  },
-  {
-    id: 2,
-    title: "Smart Scanning",
-    desc: "Loid AI classifying waste in real-time.",
-    img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600",
-    colSpan: "md:col-span-4",
-    rowSpan: "md:row-span-1",
-  },
-  {
-    id: 3,
-    title: "Rewards",
-    desc: "Earning points for every correct sort.",
-    img: "https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&q=80&w=400",
-    colSpan: "md:col-span-2",
-    rowSpan: "md:row-span-1",
-  },
-  {
-    id: 4,
-    title: "Urban Greenery",
-    desc: "Turning virtual trees into real impact.",
-    img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400",
-    colSpan: "md:col-span-2",
-    rowSpan: "md:row-span-1",
-  },
-];
-
 export default function ImpactGallerySection() {
   const { t } = useTranslation();
+
+  const GALLERY_ITEMS = [
+    {
+      id: 1,
+      title: t.impact.items[0].title,
+      desc: t.impact.items[0].desc,
+      img: "https://images.unsplash.com/photo-1618477461853-cf6ed80fabe9?auto=format&fit=crop&q=80&w=800",
+      colSpan: "md:col-span-8",
+      rowSpan: "md:row-span-2",
+    },
+    {
+      id: 2,
+      title: t.impact.items[1].title,
+      desc: t.impact.items[1].desc,
+      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600",
+      colSpan: "md:col-span-4",
+      rowSpan: "md:row-span-1",
+    },
+    {
+      id: 3,
+      title: t.impact.items[2].title,
+      desc: t.impact.items[2].desc,
+      img: "https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&q=80&w=400",
+      colSpan: "md:col-span-2",
+      rowSpan: "md:row-span-1",
+    },
+    {
+      id: 4,
+      title: t.impact.items[3].title,
+      desc: t.impact.items[3].desc,
+      img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400",
+      colSpan: "md:col-span-2",
+      rowSpan: "md:row-span-1",
+    },
+  ];
 
   return (
     <section className="relative w-full bg-background py-24 sm:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="mb-16 flex flex-col items-center text-center">
           <p className="text-xs uppercase tracking-[0.4em] text-primary">
-            <HackerText text="The Impact" />
+            <HackerText text={t.impact.label} />
           </p>
           <h2 className="font-display mt-4 text-4xl font-semibold leading-[1.02] sm:text-6xl text-foreground">
-            Real People. <span className="text-accent italic">Real Change.</span>
+            {t.impact.headline} <span className="text-accent italic">{t.impact.headlineHighlight}</span>
           </h2>
           <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-            See how the TichXanh community is transforming our environment, one scanned bottle at a time.
+            {t.impact.subheadline}
           </p>
         </div>
 

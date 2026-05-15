@@ -56,6 +56,40 @@
       { "name": "Rác Nhựa", "label": "Vàng" },
       { "name": "Rác Nguy hại", "label": "Đỏ" },
       { "name": "Rác khác", "label": "Xám" }
+    ],
+    "co2Title": "Phân bổ rác thải hàng năm (Triệu tấn)",
+    "countries": {
+      "vn": "Việt Nam",
+      "usa": "Hoa Kỳ",
+      "eu": "Liên minh Châu Âu"
+    },
+    "wasteStats": {
+      "recycled": "Tái chế",
+      "landfill": "Chôn lấp / Rò rỉ"
+    }
+  },
+  "impact": {
+    "label": "Tác Động",
+    "headline": "Con Người Thật.",
+    "headlineHighlight": "Thay Đổi Thật.",
+    "subheadline": "Hãy xem cách cộng đồng TichXanh đang biến đổi môi trường của chúng ta, thông qua từng chai nhựa được quét.",
+    "items": [
+      {
+        "title": "Hành Động Cộng Đồng",
+        "desc": "Hơn 12.000 học sinh tổ chức dọn dẹp hàng tuần."
+      },
+      {
+        "title": "Quét Thông Minh",
+        "desc": "Loid AI phân loại rác thải theo thời gian thực."
+      },
+      {
+        "title": "Phần Thưởng",
+        "desc": "Kiếm điểm cho mỗi lần phân loại đúng."
+      },
+      {
+        "title": "Cây Xanh Đô Thị",
+        "desc": "Biến cây ảo thành tác động thực tế."
+      }
     ]
   }
 }

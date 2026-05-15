@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslation } from "@/shared/hooks/use-translation";
 import { Apple, Recycle, Package, Skull, Trash2 } from "lucide-react";
 
@@ -39,28 +37,6 @@ const CATEGORY_ICONS = [Apple, Recycle, Package, Skull, Trash2];
 export default function RealitySection() {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !sectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      // 3D Overlay effect: Push Hero down and scale it back as this section scrolls up
-      gsap.to("#hero", {
-        yPercent: 30,
-        scale: 0.95,
-        opacity: 0,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
@@ -107,34 +83,53 @@ export default function RealitySection() {
             </p>
           </motion.div>
 
-          {/* Daily CO2 Emissions Comparison */}
+          {/* Annual Waste Distribution Comparison */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-20 border-t border-foreground/10 pt-16"
           >
-            <h3 className="mb-10 text-xl font-bold uppercase tracking-widest text-foreground">
-              Daily CO₂ Emissions from Waste (Tons)
+            <h3 className="mb-12 text-xl font-bold uppercase tracking-widest text-foreground">
+              {t.reality.co2Title}
             </h3>
-            <div className="space-y-8">
+            <div className="space-y-12">
               {[
-                { label: "Vietnam", value: 60000, max: 800000, color: "bg-emerald-500" },
-                { label: "European Union", value: 700000, max: 800000, color: "bg-blue-500" },
-                { label: "United States", value: 800000, max: 800000, color: "bg-red-500" }
+                { label: t.reality.countries.vn, total: 20, recycled: 10, landfill: 90 },
+                { label: t.reality.countries.eu, total: 230, recycled: 48, landfill: 52 },
+                { label: t.reality.countries.usa, total: 290, recycled: 32, landfill: 68 }
               ].map((item, idx) => (
                 <div key={item.label} className="relative">
-                  <div className="mb-2 flex items-center justify-between text-sm font-semibold uppercase tracking-wider">
-                    <span>{item.label}</span>
-                    <span className="font-display text-lg text-primary"><AnimatedCounter value={item.value} /> Tons</span>
+                  <div className="mb-3 flex flex-col md:flex-row md:items-end justify-between">
+                    <div>
+                      <span className="text-xl font-bold uppercase tracking-wider text-foreground">{item.label}</span>
+                      <p className="text-sm text-muted-foreground mt-1 font-display">
+                        <span className="text-primary font-bold"><AnimatedCounter value={item.total} /></span> {t.reality.stat1Sub}
+                      </p>
+                    </div>
+                    <div className="flex gap-4 text-xs font-semibold uppercase mt-3 md:mt-0 tracking-widest">
+                      <span className="text-emerald-400 flex items-center gap-1.5"><div className="w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(52,211,153,0.5)]"/> {t.reality.wasteStats.recycled}: {item.recycled}%</span>
+                      <span className="text-red-400 flex items-center gap-1.5"><div className="w-2 h-2 bg-red-400 rounded-full shadow-[0_0_10px_rgba(248,113,113,0.5)]"/> {t.reality.wasteStats.landfill}: {item.landfill}%</span>
+                    </div>
                   </div>
-                  <div className="h-4 w-full overflow-hidden rounded-full bg-foreground/5">
+                  {/* Segmented Progress Bar */}
+                  <div className="h-6 w-full flex overflow-hidden rounded-full bg-foreground/5 relative shadow-inner">
                     <motion.div
                       initial={{ width: 0 }}
-                      whileInView={{ width: `${(item.value / item.max) * 100}%` }}
+                      whileInView={{ width: `${item.recycled}%` }}
                       transition={{ duration: 1.5, delay: 0.2 + idx * 0.2, ease: "easeOut" }}
-                      className={`h-full ${item.color} shadow-[0_0_15px_rgba(0,0,0,0.5)]`}
-                    />
+                      className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 relative flex items-center justify-center overflow-hidden"
+                    >
+                       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==')] opacity-50 mix-blend-overlay" />
+                    </motion.div>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${item.landfill}%` }}
+                      transition={{ duration: 1.5, delay: 0.2 + idx * 0.2, ease: "easeOut" }}
+                      className="h-full bg-gradient-to-r from-red-500/80 to-red-600/80 relative overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-30" />
+                    </motion.div>
                   </div>
                 </div>
               ))}
@@ -143,11 +138,11 @@ export default function RealitySection() {
         </div>
 
         {/* 5-Level Waste Sorting Guide */}
-        <div className="mb-32">
+        <div className="mb-32 w-full overflow-hidden">
           <h3 className="mb-12 text-2xl font-bold uppercase tracking-widest text-foreground">
             {t.reality.guideTitle}
           </h3>
-          <div className="flex gap-4 overflow-x-auto pb-8 snap-x no-scrollbar md:gap-6">
+          <div className="flex gap-4 overflow-x-auto pb-8 snap-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:gap-6">
             {t.reality.categories.map((cat: { name: string; label: string }, idx: number) => (
               <motion.div
                 key={cat.name}

@@ -2,7 +2,46 @@ import en from "../../locales/en.json";
 import vi from "../../locales/vi.json";
 
 export type Locale = "en" | "vi";
-export type Dictionary = typeof en;
+
+export interface WasteCategoryItem {
+  name: string;
+  label: string;
+}
+
+export interface GalleryItem {
+  title: string;
+  desc: string;
+}
+
+export interface Dictionary {
+  hero: { redefine: string; value: string; waste: string; scroll: string };
+  nav: { home: string; getRecycling: string; features: string; reality: string; downloads: string };
+  features: {
+    label: string;
+    headline: string;
+    edge: { title: string; body: string };
+    carbon: { title: string; body: string };
+    rewards: { title: string; body: string };
+  };
+  downloads: { ready: string; headline: string; subheadline: string; body: string; button: string };
+  founder: { name: string; title: string; location: string; sectionLabel: string; quote: string; tagline: string };
+  reality: {
+    stat1: string; stat1Label: string; stat1Sub: string;
+    stat2: string; stat2Label: string;
+    guideTitle: string;
+    categories: WasteCategoryItem[];
+    co2Title: string;
+    countries: { vn: string; usa: string; eu: string };
+    wasteStats: { recycled: string; landfill: string };
+  };
+  impact: {
+    label: string;
+    headline: string;
+    headlineHighlight: string;
+    subheadline: string;
+    items: GalleryItem[];
+  };
+}
 
 const LOCALE_STORAGE_KEY = "tichxanh_locale";
 const SUPPORTED_LOCALES: Locale[] = ["en", "vi"];

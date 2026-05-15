@@ -56,6 +56,40 @@
       { "name": "Plastic Waste", "label": "Yellow" },
       { "name": "Hazardous Waste", "label": "Red" },
       { "name": "Other Waste", "label": "Gray" }
+    ],
+    "co2Title": "Annual Waste Distribution (Million Tons)",
+    "countries": {
+      "vn": "Vietnam",
+      "usa": "United States",
+      "eu": "European Union"
+    },
+    "wasteStats": {
+      "recycled": "Recycled",
+      "landfill": "Landfill / Leaked"
+    }
+  },
+  "impact": {
+    "label": "The Impact",
+    "headline": "Real People.",
+    "headlineHighlight": "Real Change.",
+    "subheadline": "See how the TichXanh community is transforming our environment, one scanned bottle at a time.",
+    "items": [
+      {
+        "title": "Community Action",
+        "desc": "12,000+ students organizing weekly cleanups."
+      },
+      {
+        "title": "Smart Scanning",
+        "desc": "Loid AI classifying waste in real-time."
+      },
+      {
+        "title": "Rewards",
+        "desc": "Earning points for every correct sort."
+      },
+      {
+        "title": "Urban Greenery",
+        "desc": "Turning virtual trees into real impact."
+      }
     ]
   }
 }
