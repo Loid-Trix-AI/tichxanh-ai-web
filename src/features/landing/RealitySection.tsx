@@ -85,9 +85,16 @@ export default function RealitySection() {
 
           {/* Annual Waste Distribution Comparison */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: { staggerChildren: 0.15, delayChildren: 0.4 }
+              }
+            }}
             className="mt-20 border-t border-foreground/10 pt-16"
           >
             <h3 className="mb-12 text-xl font-bold uppercase tracking-widest text-foreground">
@@ -99,7 +106,14 @@ export default function RealitySection() {
                 { label: t.reality.countries.eu, total: 230, recycled: 48, landfill: 52 },
                 { label: t.reality.countries.usa, total: 290, recycled: 32, landfill: 68 }
               ].map((item, idx) => (
-                <div key={item.label} className="relative">
+                <motion.div 
+                  key={item.label} 
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    show: { opacity: 1, y: 0 }
+                  }}
+                  className="relative"
+                >
                   <div className="mb-3 flex flex-col md:flex-row md:items-end justify-between">
                     <div>
                       <span className="text-xl font-bold uppercase tracking-wider text-foreground">{item.label}</span>
@@ -115,25 +129,25 @@ export default function RealitySection() {
                   {/* Segmented Progress Bar */}
                   <div className="h-6 w-full flex overflow-hidden rounded-full bg-foreground/5 relative shadow-inner">
                     <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      transition={{ duration: 1.5, delay: 0.2 + idx * 0.2, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 relative flex items-center justify-center overflow-hidden origin-left"
+                      variants={{
+                        hidden: { scaleX: 0 },
+                        show: { scaleX: 1 }
+                      }}
+                      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                      className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 relative flex items-center justify-center overflow-hidden origin-left will-change-transform"
                       style={{ width: `${item.recycled}%` }}
-                    >
-                       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==')] opacity-50 mix-blend-overlay" />
-                    </motion.div>
+                    />
                     <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      transition={{ duration: 1.5, delay: 0.2 + idx * 0.2, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-red-500/80 to-red-600/80 relative overflow-hidden origin-left"
+                      variants={{
+                        hidden: { scaleX: 0 },
+                        show: { scaleX: 1 }
+                      }}
+                      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                      className="h-full bg-gradient-to-r from-red-500/80 to-red-600/80 relative overflow-hidden origin-left border-l border-white/10 will-change-transform"
                       style={{ width: `${item.landfill}%` }}
-                    >
-                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-30" />
-                    </motion.div>
+                    />
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
