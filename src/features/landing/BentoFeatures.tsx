@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "f
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScanLine, Sprout, Gift, Cpu } from "lucide-react";
+import { ScanLine, Sprout, Gift, Cpu, Recycle } from "lucide-react";
 import QRDownloadBlock from "./QRDownloadBlock";
 import { HackerText } from "@/shared/ui/HackerText";
 import { useTranslation } from "@/shared/hooks/use-translation";
@@ -38,7 +38,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
 export default function BentoFeatures() {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement | null>(null);
-  const phoneRef = useRef<HTMLDivElement | null>(null);
+  const treeRef = useRef<HTMLDivElement | null>(null);
 
   const localizedFeatures = [
     {
@@ -67,8 +67,8 @@ export default function BentoFeatures() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Parallax phone
-      gsap.to(phoneRef.current, {
+      // Parallax Tree
+      gsap.to(treeRef.current, {
         yPercent: -18,
         ease: "none",
         scrollTrigger: {
@@ -105,17 +105,17 @@ export default function BentoFeatures() {
       className="relative overflow-hidden bg-background px-6 py-28 sm:px-10 lg:py-40"
     >
       <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
-        {/* Left — floating phone mockup */}
+        {/* Left — floating Tree mockup */}
         <div className="relative">
           <div
-            ref={phoneRef}
+            ref={treeRef}
             className="sticky top-24 mx-auto w-full max-w-[340px] perspective-1000"
           >
             <motion.div
-              whileHover={{ rotateY: 15, rotateX: 5, scale: 1.02 }}
+              whileHover={{ rotateY: 10, rotateX: 5, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
             >
-              <PhoneMock />
+              <TreeMock />
             </motion.div>
           </div>
         </div>
@@ -166,100 +166,94 @@ export default function BentoFeatures() {
   );
 }
 
-function PhoneMock() {
-  const [imageIndex, setImageIndex] = useState(0);
-  const images = [
-    "https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?auto=format&fit=crop&q=80&w=400", // Plastic bottles
-    "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&q=80&w=400", // Litter
-    "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&q=80&w=400", // Cans
-  ];
+function TreeMock() {
+  const [level, setLevel] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setImageIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
+      setLevel((prev) => (prev >= 4 ? 0 : prev + 1));
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative aspect-[9/19] w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-[oklch(0.24_0.02_155)] to-[oklch(0.16_0.01_155)] p-3 shadow-[0_60px_120px_-40px_rgb(0_0_0/0.7)] isolation-auto" style={{ clipPath: "inset(0 round 2.5rem)" }}>
-      <div className="absolute left-1/2 top-3 z-20 h-5 w-24 -translate-x-1/2 rounded-full bg-black/80" />
-      <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-[oklch(0.13_0.01_155)]">
-        {/* Background Image Switcher */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={imageIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 z-0"
-          >
-            <img
-              src={images[imageIndex]}
-              alt="Waste detection background"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.13_0.01_155)] via-transparent to-transparent" />
-          </motion.div>
-        </AnimatePresence>
+    <div className="relative aspect-[9/16] w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-[oklch(0.24_0.02_155)] to-[oklch(0.16_0.01_155)] p-6 shadow-[0_60px_120px_-40px_rgb(0_0_0/0.7)] overflow-hidden flex flex-col items-center justify-end pb-28">
+      {/* Animated Drop Waste */}
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          key={level}
+          initial={{ y: -200, opacity: 0, rotate: -20 }}
+          animate={{ y: 20, opacity: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 100 }}
+          transition={{ duration: 1.5, type: "spring", bounce: 0.4 }}
+          className="absolute top-10 flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-md shadow-[0_0_30px_rgba(74,222,128,0.3)] z-20"
+        >
+           <Recycle className="h-8 w-8 text-primary" />
+        </motion.div>
+      </AnimatePresence>
 
-        {/* Faux app UI */}
-        <div className="absolute inset-0 z-10 grid grid-rows-[auto_1fr_auto] p-5">
-          <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-white/50">
-            <span>09:41</span>
-            <span>· · ·</span>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-4">
-            <div className="relative grid h-32 w-32 place-items-center rounded-full">
-              <motion.div
-                className="absolute inset-0 rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, var(--primary), var(--accent), var(--primary))",
-                  padding: "2px",
-                }}
-              />
-              <div className="grid h-28 w-28 place-items-center rounded-full bg-[oklch(0.13_0.01_155)] relative z-10">
-                <Cpu className="h-10 w-10 text-primary" />
-              </div>
-            </div>
-            <div className="text-center">
-              <p className="text-xs uppercase tracking-[0.3em] text-primary">Detected</p>
-              <p className="font-display mt-1 text-lg font-semibold">
-                {imageIndex === 0
-                  ? "PET · Plastic #1"
-                  : imageIndex === 1
-                    ? "Mixed Litter"
-                    : "Aluminum Can"}
-              </p>
-              <p className="text-[11px] text-white/50">
-                +{imageIndex === 0 ? "12" : imageIndex === 1 ? "5" : "8"} g CO₂ saved
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-2 text-[10px] text-white/60">
-            <div className="rounded-xl border border-white/10 p-2 text-center bg-black/20 backdrop-blur-md">
-              <div className="font-display text-base text-foreground">
-                <AnimatedCounter value={128} />
-              </div>
-              Scans
-            </div>
-            <div className="rounded-xl border border-white/10 p-2 text-center bg-black/20 backdrop-blur-md">
-              <div className="font-display text-base text-foreground">
-                <AnimatedCounter value={3.2} suffix="kg" />
-              </div>
-              CO₂
-            </div>
-            <div className="rounded-xl border border-white/10 p-2 text-center bg-black/20 backdrop-blur-md">
-              <div className="font-display text-base text-accent">
-                <AnimatedCounter value={7} />
-              </div>
-              Trees
-            </div>
-          </div>
+      {/* Tree SVG */}
+      <motion.div 
+        className="relative z-10 w-full"
+        animate={{ scale: 1 + level * 0.15 }}
+        transition={{ type: "spring", bounce: 0.5 }}
+      >
+        <svg viewBox="0 0 200 250" className="w-full h-auto overflow-visible drop-shadow-2xl">
+          {/* Soil */}
+          <path d="M40 250 Q100 230 160 250" stroke="var(--sage)" strokeWidth="4" fill="none" opacity="0.5"/>
+          
+          {/* Trunk */}
+          <motion.path 
+            d="M100 250 Q90 180 100 120" 
+            stroke="var(--sage)" 
+            strokeWidth="14" 
+            strokeLinecap="round" 
+            fill="none" 
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1.5 }}
+          />
+
+          {/* Branches & Leaves based on level */}
+          <AnimatePresence>
+            {level >= 1 && (
+              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
+                <path d="M100 180 Q60 140 40 160" stroke="var(--sage)" strokeWidth="8" strokeLinecap="round" fill="none" />
+                <circle cx="40" cy="160" r="15" fill="var(--sage)" opacity="0.9" />
+              </motion.g>
+            )}
+            {level >= 2 && (
+              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
+                <path d="M98 150 Q140 110 160 130" stroke="var(--sage)" strokeWidth="8" strokeLinecap="round" fill="none" />
+                <circle cx="160" cy="130" r="18" fill="var(--sage)" opacity="0.9" />
+              </motion.g>
+            )}
+            {level >= 3 && (
+              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
+                <path d="M100 120 Q80 80 100 50" stroke="var(--sage)" strokeWidth="10" strokeLinecap="round" fill="none" />
+                <circle cx="100" cy="50" r="28" fill="var(--primary)" opacity="0.95" />
+              </motion.g>
+            )}
+            {level >= 4 && (
+              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
+                <circle cx="70" cy="80" r="22" fill="var(--accent)" opacity="0.9" />
+                <circle cx="130" cy="80" r="22" fill="var(--accent)" opacity="0.9" />
+                <circle cx="100" cy="90" r="26" fill="var(--sage)" opacity="0.9" />
+              </motion.g>
+            )}
+          </AnimatePresence>
+        </svg>
+      </motion.div>
+
+      {/* Stats Overlay */}
+      <div className="absolute bottom-6 left-6 right-6 grid grid-cols-2 gap-4">
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
+           <p className="text-[10px] uppercase tracking-widest text-white/50">Recycled</p>
+           <p className="font-display mt-1 text-2xl text-foreground"><AnimatedCounter value={level * 120} /> kg</p>
+        </div>
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
+           <p className="text-[10px] uppercase tracking-widest text-white/50">Tree Lvl</p>
+           <p className="font-display mt-1 text-2xl text-primary">{level + 1} / 5</p>
         </div>
       </div>
     </div>

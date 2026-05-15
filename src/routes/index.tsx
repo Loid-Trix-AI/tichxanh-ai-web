@@ -4,6 +4,7 @@ import { Navbar } from "@/shared/ui/Navbar";
 import HeroSection from "@/features/landing/HeroSection";
 import RealitySection from "@/features/landing/RealitySection";
 import BentoFeatures from "@/features/landing/BentoFeatures";
+import ImpactGallerySection from "@/features/landing/ImpactGallerySection";
 import FounderSection from "@/features/landing/FounderSection";
 import SiteFooter from "@/features/landing/SiteFooter";
 
@@ -38,6 +39,7 @@ function Index() {
       <main className="relative grain bg-background text-foreground">
         <HeroSection />
         <RealitySection />
+        <ImpactGallerySection />
         <BentoFeatures />
         <FounderSection />
         <SiteFooter />

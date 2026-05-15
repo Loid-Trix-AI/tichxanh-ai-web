@@ -20,14 +20,9 @@ export default function HeroSection() {
     [],
   );
 
-  // Animation windows
-  const scanProgress = Math.max(0, Math.min(1, (progress - 0.2) / 0.2)); // 0.2 -> 0.4
-  const checkmarkProgress = Math.max(0, Math.min(1, (progress - 0.4) / 0.1)); // 0.4 -> 0.5
-
   // Color blooms immediately upon scrolling (0 -> 0.15)
   const bloom = Math.max(0, Math.min(1, progress / 0.15));
   const grayscale = 1 - bloom;
-  const treeScale = Math.max(0, Math.min(1, (progress - 0.55) / 0.35));
 
   return (
     <section
@@ -35,11 +30,11 @@ export default function HeroSection() {
       id="hero"
       className="relative h-screen w-full overflow-hidden bg-background"
     >
-      {/* Image-sequence canvas, grayscale fades to color at the climax. */}
       <div
-        className="absolute inset-0 transition-[filter] duration-300"
+        className="absolute inset-0 transition-[filter,opacity] duration-300"
         style={{
           filter: `grayscale(${grayscale}) contrast(${1 + bloom * 0.05}) saturate(${0.6 + bloom * 1.4})`,
+          opacity: Math.max(0, 1 - Math.max(0, progress - 0.9) * 10),
         }}
       >
         <CanvasScrollytelling
@@ -51,50 +46,7 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* Scanning Overlay */}
-      {scanProgress > 0 && scanProgress < 1 && (
-        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-          <div className="relative h-[40vh] w-[20vh] border border-primary/20 bg-primary/5 backdrop-blur-[2px]">
-            <motion.div
-              className="absolute left-0 right-0 h-1 bg-primary shadow-[0_0_15px_rgba(132,169,140,0.8)]"
-              animate={{ top: ["0%", "100%", "0%"] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Checkmark Overlay */}
-      {checkmarkProgress > 0 && (
-        <div
-          className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
-          style={{ opacity: 1 - bloom }}
-        >
-          <svg viewBox="0 0 52 52" className="h-24 w-24 text-primary">
-            <motion.circle
-              cx="26"
-              cy="26"
-              r="25"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: checkmarkProgress }}
-            />
-            <motion.path
-              d="M14.1 27.2l7.1 7.2 16.7-16.8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="4"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: Math.max(0, (checkmarkProgress - 0.5) * 2) }}
-            />
-          </svg>
-        </div>
-      )}
-
-      {/* Color bloom radial mask emerging from center at the climax. */}
+      {/* Removed old scanning/checkmark overlays here */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -105,35 +57,11 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Sprouting virtual tree SVG */}
-      <svg
-        aria-hidden
-        viewBox="0 0 200 200"
-        className="pointer-events-none absolute left-1/2 top-[38%] h-[34vh] w-[34vh] -translate-x-1/2"
-        style={{
-          opacity: treeScale,
-          transform: `translate(-50%, 0) scale(${0.4 + treeScale * 0.8})`,
-          transformOrigin: "50% 100%",
-        }}
-      >
-        <path
-          d="M100 200 L100 90"
-          stroke="var(--sage)"
-          strokeWidth="3"
-          fill="none"
-          strokeDasharray="120"
-          strokeDashoffset={120 - 120 * treeScale}
-        />
-        <circle cx="78" cy="92" r={10 * treeScale} fill="var(--sage)" opacity="0.85" />
-        <circle cx="122" cy="92" r={10 * treeScale} fill="var(--sage)" opacity="0.85" />
-        <circle cx="100" cy="72" r={12 * treeScale} fill="oklch(0.84 0.08 145)" />
-      </svg>
-
       {/* Headline overlay */}
       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-between px-6 pb-16 pt-32 sm:px-10">
         <div /> {/* Spacer for Navbar */}
         <h1
-          className="font-display text-center text-[14vw] font-bold leading-[0.88] sm:text-[10vw] md:text-[8.5vw]"
+          className="font-display text-center text-[11vw] font-bold leading-[0.88] sm:text-[8vw] md:text-[6.5vw]"
           style={{
             opacity: 1 - Math.min(1, progress * 10),
             transform: `translateY(${progress * -40}px)`,

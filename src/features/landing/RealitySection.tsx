@@ -1,17 +1,38 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useTranslation } from "@/shared/hooks/use-translation";
+import { Apple, Recycle, Package, Skull, Trash2 } from "lucide-react";
 
-/** Dot colors matched to the waste category spectrum — intentionally semantic. */
-const CATEGORY_COLORS = ["#4ade80", "#60a5fa", "#facc15", "#f87171", "#9ca3af"] as const;
+function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, { damping: 60, stiffness: 100 });
 
-const CATEGORY_IMAGES = [
-  "https://images.unsplash.com/photo-1542601906970-34f97e610fd9?auto=format&fit=crop&q=80&w=400", // Organic
-  "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=400", // Recyclables
-  "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&q=80&w=400", // Plastic
-  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400", // Hazardous
-  "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&q=80&w=400", // Other
+  useEffect(() => {
+    if (inView) motionValue.set(value);
+  }, [inView, value, motionValue]);
+
+  useEffect(() => {
+    return springValue.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = Number(latest).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + suffix;
+      }
+    });
+  }, [springValue, suffix]);
+
+  return <span ref={ref}>0{suffix}</span>;
+}
+
+const CATEGORY_COLORS = [
+  "from-emerald-500 to-green-400",
+  "from-blue-500 to-cyan-400",
+  "from-amber-500 to-yellow-400",
+  "from-red-500 to-orange-400",
+  "from-slate-500 to-gray-400"
 ];
+
+const CATEGORY_ICONS = [Apple, Recycle, Package, Skull, Trash2];
 
 export default function RealitySection() {
   const { t } = useTranslation();
@@ -59,6 +80,40 @@ export default function RealitySection() {
               {t.reality.stat2Label}
             </p>
           </motion.div>
+
+          {/* Daily CO2 Emissions Comparison */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-20 border-t border-foreground/10 pt-16"
+          >
+            <h3 className="mb-10 text-xl font-bold uppercase tracking-widest text-foreground">
+              Daily CO₂ Emissions from Waste (Tons)
+            </h3>
+            <div className="space-y-8">
+              {[
+                { label: "Vietnam", value: 60000, max: 800000, color: "bg-emerald-500" },
+                { label: "European Union", value: 700000, max: 800000, color: "bg-blue-500" },
+                { label: "United States", value: 800000, max: 800000, color: "bg-red-500" }
+              ].map((item, idx) => (
+                <div key={item.label} className="relative">
+                  <div className="mb-2 flex items-center justify-between text-sm font-semibold uppercase tracking-wider">
+                    <span>{item.label}</span>
+                    <span className="font-display text-lg text-primary"><AnimatedCounter value={item.value} /> Tons</span>
+                  </div>
+                  <div className="h-4 w-full overflow-hidden rounded-full bg-foreground/5">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${(item.value / item.max) * 100}%` }}
+                      transition={{ duration: 1.5, delay: 0.2 + idx * 0.2, ease: "easeOut" }}
+                      className={`h-full ${item.color} shadow-[0_0_15px_rgba(0,0,0,0.5)]`}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
         {/* 5-Level Waste Sorting Guide */}
@@ -76,15 +131,14 @@ export default function RealitySection() {
                 className="group hover-lift relative flex min-w-[280px] flex-col overflow-hidden rounded-2xl bg-white/5 backdrop-blur-xl transition-all hover:bg-white/10 snap-center md:min-w-0 md:flex-1"
               >
                 <div className="relative h-48 w-full overflow-hidden">
-                  <img
-                    src={CATEGORY_IMAGES[idx]}
-                    alt={cat.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                  />
-                  <div
-                    className="absolute bottom-0 left-0 h-1.5 w-full"
-                    style={{ backgroundColor: CATEGORY_COLORS[idx] }}
-                  />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${CATEGORY_COLORS[idx]} opacity-20 transition-opacity duration-500 group-hover:opacity-40`} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {React.createElement(CATEGORY_ICONS[idx], {
+                      className: "h-20 w-20 text-foreground transition-transform duration-500 group-hover:scale-125 group-hover:rotate-12",
+                      strokeWidth: 1.5
+                    })}
+                  </div>
+                  <div className={`absolute bottom-0 left-0 h-1.5 w-full bg-gradient-to-r ${CATEGORY_COLORS[idx]}`} />
                 </div>
                 <div className="p-6">
                   <h4 className="text-lg font-bold leading-tight text-foreground">{cat.name}</h4>
