@@ -1,12 +1,9 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useTranslation } from "@/shared/hooks/use-translation";
 import CanvasScrollytelling from "./CanvasScrollytelling";
 
 const FRAME_COUNT = 96;
-
-// Push-back starts at this scroll progress value (0-1)
-const PUSH_START = 0.75;
 
 export default function HeroSection() {
   const { t } = useTranslation();
@@ -18,26 +15,37 @@ export default function HeroSection() {
       Array.from(
         { length: FRAME_COUNT },
         (_, i) =>
-          `/seq/processed_Bottle_cracks_morphing_into_plastic_202605151159_${String(
-            i + 1,
-          ).padStart(3, "0")}.jpg`,
+          `/seq/processed_Bottle_cracks_morphing_into_plastic_202605151159_${String(i + 1).padStart(
+            3,
+            "0",
+          )}.jpg`,
       ),
     [],
   );
 
-  // Bloom: color appears immediately on first scroll (0 → 0.15)
-  const grayscale = useTransform(progress, [0, 0.15], [1, 0]);
-  const bloom = useTransform(progress, [0, 0.15], [0, 1]);
+  // Bloom: color appears immediately on first scroll (0 → 0.1)
+  const grayscale = useTransform(progress, [0, 0.1], [1, 0]);
+  const bloom = useTransform(progress, [0, 0.1], [0, 1]);
 
-  // Push-back: kicks in after PUSH_START, completes at progress=1
-  const pushScale = useTransform(progress, [PUSH_START, 1], [1, 0.92]);
-  const pushTranslateY = useTransform(progress, [PUSH_START, 1], [0, -4]); // vh
-  const pushOpacity = useTransform(progress, [PUSH_START, 1], [1, 0]);
-  
-  // Text animations
+  // Video push-back and fade starts towards the end
+  const pushScale = useTransform(progress, [0.8, 1], [1, 0.9]);
+  const pushTranslateY = useTransform(progress, [0.8, 1], [0, -5]); // vh
+  const pushOpacity = useTransform(progress, [0.85, 1], [1, 0]);
+
+  // Initial text animations (the "REDEFINE the value of WASTE")
   const textOpacity = useTransform(progress, [0, 0.05], [1, 0]);
   const textY = useTransform(progress, [0, 0.05], [0, -40]);
   const textBlur = useTransform(progress, [0, 0.05], [0, 40]);
+
+  // Ending sequence animations
+  const endingBgOpacity = useTransform(progress, [0.85, 0.95], [0, 1]); // Fades to black
+  const endingOpacity = useTransform(progress, [0.85, 0.95], [0, 1]); // Text fades in
+  const endingScale = useTransform(progress, [0.85, 1], [0.8, 1]); // Text scales up
+  const endingBlur = useTransform(progress, [0.85, 0.95], [20, 0]); // Text blur resolves
+
+  // Split text effect ("TICHXANH" <-> "AI")
+  const splitLeftX = useTransform(progress, [0.9, 1], [60, 0]);
+  const splitRightX = useTransform(progress, [0.9, 1], [-60, 0]);
 
   return (
     <section
@@ -52,7 +60,7 @@ export default function HeroSection() {
           filter: useTransform(grayscale, (v) => `grayscale(${v})`),
           transform: useTransform(
             [pushScale, pushTranslateY],
-            ([s, y]) => `scale(${s}) translateY(${y}vh)`
+            ([s, y]) => `scale(${s}) translateY(${y}vh)`,
           ),
           opacity: pushOpacity,
           transformOrigin: "50% 50%",
@@ -61,7 +69,8 @@ export default function HeroSection() {
         <CanvasScrollytelling
           frames={frames}
           pinTargetRef={sectionRef}
-          scrollDistance="+=150%"
+          scrollDistance="+=200%"
+          videoEndProgress={0.9}
           onProgress={(p) => progress.set(p)}
           className="h-full w-full"
         />
@@ -72,8 +81,10 @@ export default function HeroSection() {
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          background: useTransform(bloom, (v) => 
-            `radial-gradient(circle at 50% 55%, color-mix(in oklab, var(--sage) ${v * 30}%, transparent) 0%, transparent ${20 + v * 40}%)`
+          background: useTransform(
+            bloom,
+            (v) =>
+              `radial-gradient(circle at 50% 55%, color-mix(in oklab, var(--sage) ${(v as number) * 30}%, transparent) 0%, transparent ${20 + (v as number) * 40}%)`,
           ),
           opacity: useTransform([bloom, pushOpacity], ([b, o]) => (b as number) * (o as number)),
           mixBlendMode: "screen",
@@ -81,7 +92,7 @@ export default function HeroSection() {
       />
 
       {/* Headline */}
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-between px-6 pb-16 pt-32 sm:px-10">
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-between px-6 pb-16 pt-32 sm:px-10 z-20">
         <div /> {/* Spacer for Navbar */}
         <motion.h1
           className="font-display text-center text-[11vw] font-bold leading-[0.88] sm:text-[8vw] md:text-[6.5vw]"
@@ -105,6 +116,27 @@ export default function HeroSection() {
           <p className="text-xs uppercase tracking-[0.4em] text-foreground/50">{t.hero.scroll}</p>
         </motion.div>
       </div>
+
+      {/* Ending Sequence Overlay */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 bg-black z-30"
+        style={{ opacity: endingBgOpacity }}
+      />
+      <motion.div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden px-6 z-40"
+        style={{
+          opacity: endingOpacity,
+          filter: useTransform(endingBlur, (b) => `blur(${b}px)`),
+          transform: useTransform(endingScale, (s) => `scale(${s})`),
+        }}
+      >
+        <div className="flex gap-4 sm:gap-8 font-display text-5xl sm:text-7xl md:text-9xl font-bold uppercase tracking-tighter text-white">
+          <motion.span style={{ x: splitLeftX }}>TICHXANH</motion.span>
+          <motion.span style={{ x: splitRightX }} className="text-primary">
+            AI
+          </motion.span>
+        </div>
+      </motion.div>
     </section>
   );
 }

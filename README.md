@@ -9,20 +9,21 @@ Web dashboard của **Tích Xanh AI** — ứng dụng gamification phân loại
 
 ## Tech Stack
 
-| Layer | Tech |
-|---|---|
-| Framework | React 19 + TanStack Start + TanStack Router |
-| Bundler | Vite 7 |
-| Styling | Tailwind CSS v4 |
-| UI Components | shadcn/ui (Radix UI) |
-| Animation | Framer Motion + GSAP + Anime.js |
-| Forms | React Hook Form + Zod |
-| State | TanStack Query |
-| Deploy | Vercel (Edge Runtime via Cloudflare) |
+| Layer         | Tech                                        |
+| ------------- | ------------------------------------------- |
+| Framework     | React 19 + TanStack Start + TanStack Router |
+| Bundler       | Vite 7                                      |
+| Styling       | Tailwind CSS v4                             |
+| UI Components | shadcn/ui (Radix UI)                        |
+| Animation     | Framer Motion + GSAP + Anime.js             |
+| Forms         | React Hook Form + Zod                       |
+| State         | TanStack Query                              |
+| Deploy        | Vercel (Edge Runtime via Cloudflare)        |
 
 ## Quick Start (Local Dev)
 
 ### Prerequisites
+
 - Node.js ≥ 20
 - [pnpm](https://pnpm.io/) ≥ 9
 
@@ -53,13 +54,13 @@ Mở [http://localhost:3000](http://localhost:3000)
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start dev server (HMR) |
-| `pnpm build` | Production build |
+| Command        | Description                      |
+| -------------- | -------------------------------- |
+| `pnpm dev`     | Start dev server (HMR)           |
+| `pnpm build`   | Production build                 |
 | `pnpm preview` | Preview production build locally |
-| `pnpm lint` | ESLint check |
-| `pnpm format` | Prettier format |
+| `pnpm lint`    | ESLint check                     |
+| `pnpm format`  | Prettier format                  |
 
 ## Project Structure
 
@@ -85,6 +86,7 @@ src/
 Web app được deploy tự động lên **Vercel** khi push lên `main`.
 
 ### Setup Vercel (One-time)
+
 1. Import repo `tichxanh-ai-web` vào Vercel
 2. Thêm environment variables trong Vercel dashboard:
    - `VITE_SUPABASE_URL` — production Supabase URL
@@ -94,10 +96,10 @@ Web app được deploy tự động lên **Vercel** khi push lên `main`.
 
 ## Environment Variables
 
-| Variable | Description | Required |
-|---|---|---|
-| `VITE_SUPABASE_URL` | Supabase project URL | ✅ |
-| `VITE_SUPABASE_ANON_KEY` | Supabase anon (public) key | ✅ |
+| Variable                 | Description                | Required |
+| ------------------------ | -------------------------- | -------- |
+| `VITE_SUPABASE_URL`      | Supabase project URL       | ✅       |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anon (public) key | ✅       |
 
 ## Links
 

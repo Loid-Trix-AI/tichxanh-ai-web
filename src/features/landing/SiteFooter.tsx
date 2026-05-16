@@ -27,11 +27,10 @@ export default function SiteFooter() {
       >
         <div>
           <div className="font-display text-2xl font-bold tracking-tight">
-            {siteConfig.shortName}<span className="text-primary">.</span>AI
+            {siteConfig.shortName}
+            <span className="text-primary">.</span>AI
           </div>
-          <p className="mt-2 max-w-sm text-sm text-foreground/60">
-            {siteConfig.description}
-          </p>
+          <p className="mt-2 max-w-sm text-sm text-foreground/60">{siteConfig.description}</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -69,11 +68,17 @@ export default function SiteFooter() {
       </motion.div>
 
       <div className="mx-auto mt-10 flex max-w-7xl items-center justify-between text-xs text-foreground/40">
-        <span>© {siteConfig.year} {siteConfig.name}</span>
         <span>
-          <a href={siteConfig.links.privacy} className="hover:text-foreground transition-colors">Privacy</a>
+          © {siteConfig.year} {siteConfig.name}
+        </span>
+        <span>
+          <a href={siteConfig.links.privacy} className="hover:text-foreground transition-colors">
+            Privacy
+          </a>
           {" · "}
-          <a href={siteConfig.links.terms} className="hover:text-foreground transition-colors">Terms</a>
+          <a href={siteConfig.links.terms} className="hover:text-foreground transition-colors">
+            Terms
+          </a>
         </span>
       </div>
     </footer>

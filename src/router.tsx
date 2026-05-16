@@ -12,4 +12,3 @@ export const getRouter = (queryClient: QueryClient) => {
 
   return router;
 };
-

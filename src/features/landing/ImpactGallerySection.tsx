@@ -49,11 +49,10 @@ export default function ImpactGallerySection() {
             <HackerText text={t.impact.label} />
           </p>
           <h2 className="font-display mt-4 text-4xl font-semibold leading-[1.02] sm:text-6xl text-foreground">
-            {t.impact.headline} <span className="text-accent italic">{t.impact.headlineHighlight}</span>
+            {t.impact.headline}{" "}
+            <span className="text-accent italic">{t.impact.headlineHighlight}</span>
           </h2>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-            {t.impact.subheadline}
-          </p>
+          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">{t.impact.subheadline}</p>
         </div>
 
         {/* Bento Grid Gallery */}
@@ -77,9 +76,7 @@ export default function ImpactGallerySection() {
                 <h3 className="font-display text-xl font-bold text-white md:text-3xl">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm text-white/70 max-w-sm">
-                  {item.desc}
-                </p>
+                <p className="mt-2 text-sm text-white/70 max-w-sm">{item.desc}</p>
               </div>
             </motion.div>
           ))}

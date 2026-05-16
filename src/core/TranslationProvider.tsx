@@ -29,6 +29,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTranslationContext(): TranslationContextValue {
   const ctx = useContext(TranslationContext);
   if (!ctx) {

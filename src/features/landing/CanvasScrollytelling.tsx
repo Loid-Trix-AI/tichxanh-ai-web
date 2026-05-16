@@ -25,6 +25,7 @@ export type CanvasScrollytellingProps = {
   scrollDistance?: string; // e.g. "+=300%"
   onProgress?: (p: number) => void;
   className?: string;
+  videoEndProgress?: number;
 };
 
 export default function CanvasScrollytelling({
@@ -33,6 +34,7 @@ export default function CanvasScrollytelling({
   scrollDistance = "+=300%",
   onProgress,
   className,
+  videoEndProgress = 1,
 }: CanvasScrollytellingProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -58,7 +60,7 @@ export default function CanvasScrollytelling({
       ([entry]) => {
         state.isVisible = entry.isIntersecting;
       },
-      { threshold: 0.01 }
+      { threshold: 0.01 },
     );
     observer.observe(canvas);
 
@@ -104,7 +106,8 @@ export default function CanvasScrollytelling({
       }
 
       // Smooth Frame Blending for low-fps sequences
-      const exactFrame = progress * (frames.length - 1);
+      const effectiveProgress = Math.min(progress / videoEndProgress, 1);
+      const exactFrame = effectiveProgress * (frames.length - 1);
       const frame1 = Math.floor(exactFrame);
       const frame2 = Math.min(frames.length - 1, frame1 + 1);
       const alpha = exactFrame - frame1;
@@ -115,7 +118,7 @@ export default function CanvasScrollytelling({
       if (!img1 || !img1.complete) return;
 
       ctx.clearRect(0, 0, cw, ch);
-      
+
       // Draw base frame
       ctx.globalAlpha = 1;
       drawCover(img1, cw, ch);
@@ -125,7 +128,7 @@ export default function CanvasScrollytelling({
         ctx.globalAlpha = alpha;
         drawCover(img2, cw, ch);
       }
-      
+
       ctx.globalAlpha = 1;
     }
 
@@ -184,7 +187,7 @@ export default function CanvasScrollytelling({
       trigger.kill();
       observer.disconnect();
     };
-  }, [frames, pinTargetRef, scrollDistance, onProgress]);
+  }, [frames, pinTargetRef, scrollDistance, onProgress, videoEndProgress]);
 
   return <canvas ref={canvasRef} className={className} />;
 }

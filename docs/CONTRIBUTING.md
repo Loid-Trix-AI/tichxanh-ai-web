@@ -10,7 +10,7 @@ We're excited that you're interested in contributing to TichXanh AI! As a projec
 2. **Setup:** Use `pnpm install` to install dependencies.
 3. **Branching:** Create a descriptive branch (e.g., `feat/new-animation` or `fix/i18n-typo`).
 4. **Develop:** Run `pnpm dev` to see your changes in real-time.
-5. **Quality Check:** 
+5. **Quality Check:**
    - Run `pnpm lint` to check for style issues.
    - Run `pnpm format` to auto-format your code.
 6. **Commit:** Follow [Conventional Commits](https://www.conventionalcommits.org/) (e.g., `feat(ui): add new bubble variant`).
@@ -27,6 +27,7 @@ We follow a strictly layered architecture. Please ensure your contributions fit 
 - **`src/routes`**: TanStack Router definitions. Keep components here minimal; delegate to `features`.
 
 ### Rules to Follow:
+
 - **Single Responsibility:** Each component or function should do one thing.
 - **DRY:** Never duplicate logic. If it's used in two places, move it to `shared`.
 - **Performance:** Use `useMemo` and `useCallback` where appropriate, especially when dealing with GSAP or Framer Motion.
@@ -45,6 +46,7 @@ We follow a strictly layered architecture. Please ensure your contributions fit 
 ## 📝 Reporting Issues
 
 If you find a bug or have a feature request, please open an issue with:
+
 1. A clear, descriptive title.
 2. Steps to reproduce the bug.
 3. Expected vs. Actual behavior.

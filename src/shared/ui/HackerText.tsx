@@ -17,7 +17,7 @@ interface HackerTextProps {
 export const HackerText: React.FC<HackerTextProps> = ({ text, className }) => {
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLSpanElement>(null);
-  
+
   // Memoize character splits to prevent expensive re-calculations
   const letters = useMemo(() => text.split(""), [text]);
   const hoverLetters = useMemo(() => text.toUpperCase().split(""), [text]);
@@ -39,31 +39,35 @@ export const HackerText: React.FC<HackerTextProps> = ({ text, className }) => {
         opacity: [1, 0],
         translateY: [0, -8],
         delay: stagger(20),
-      })
-      .add({
-        targets: hoverChars,
-        opacity: [0, 1],
-        translateY: [8, 0],
-        color: "#84a98c", // sage primary green
-        delay: stagger(20),
-      }, "-=500");
+      }).add(
+        {
+          targets: hoverChars,
+          opacity: [0, 1],
+          translateY: [8, 0],
+          color: "#84a98c", // sage primary green
+          delay: stagger(20),
+        },
+        "-=500",
+      );
     } else {
       tl.add({
         targets: hoverChars,
         opacity: [1, 0],
         translateY: [0, 8],
         delay: stagger(10),
-      })
-      .add({
-        targets: baseChars,
-        opacity: [0, 1],
-        translateY: [-8, 0],
-        delay: stagger(10),
-      }, "-=400");
+      }).add(
+        {
+          targets: baseChars,
+          opacity: [0, 1],
+          translateY: [-8, 0],
+          delay: stagger(10),
+        },
+        "-=400",
+      );
     }
 
     return () => {
-      // No explicit cleanup needed for anime timelines on simple hovers, 
+      // No explicit cleanup needed for anime timelines on simple hovers,
       // but we could call tl.pause() if needed.
     };
   }, [isHovered]);
@@ -76,8 +80,10 @@ export const HackerText: React.FC<HackerTextProps> = ({ text, className }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Ghost text for layout stability */}
-      <span className="invisible whitespace-pre" aria-hidden="true">{text.toUpperCase()}</span>
-      
+      <span className="invisible whitespace-pre" aria-hidden="true">
+        {text.toUpperCase()}
+      </span>
+
       {/* Base Layer (Sans-serif) */}
       <span className="absolute inset-0 flex items-center justify-center overflow-hidden">
         {letters.map((c, i) => (
@@ -88,13 +94,16 @@ export const HackerText: React.FC<HackerTextProps> = ({ text, className }) => {
       </span>
 
       {/* Hover Layer (Monospace Code Style) */}
-      <span 
-        className="absolute inset-0 flex items-center justify-center font-mono font-bold" 
+      <span
+        className="absolute inset-0 flex items-center justify-center font-mono font-bold"
         style={{ fontFamily: "var(--font-mono, monospace)" }}
         aria-hidden="true"
       >
         {hoverLetters.map((c, i) => (
-          <span key={i} className="hover-char inline-block whitespace-pre opacity-0 will-change-transform">
+          <span
+            key={i}
+            className="hover-char inline-block whitespace-pre opacity-0 will-change-transform"
+          >
             {c}
           </span>
         ))}

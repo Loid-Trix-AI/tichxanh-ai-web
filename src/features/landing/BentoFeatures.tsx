@@ -8,6 +8,7 @@ import { ScanLine, Sprout, Gift, Cpu, Recycle } from "lucide-react";
 import QRDownloadBlock from "./QRDownloadBlock";
 import { HackerText } from "@/shared/ui/HackerText";
 import { useTranslation } from "@/shared/hooks/use-translation";
+import { type Dictionary } from "@/core/services/DictionaryService";
 
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -166,7 +167,15 @@ export default function BentoFeatures() {
   );
 }
 
-function TreeMock({ t }: { t: any }) {
+const TREE_IMAGES = [
+  "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?q=80&w=600&auto=format&fit=crop", // Soil/Seed
+  "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop", // Sprout
+  "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600&auto=format&fit=crop", // Sapling
+  "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop", // Tree
+  "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=600&auto=format&fit=crop", // Forest
+];
+
+function TreeMock({ t }: { t: Dictionary }) {
   const [level, setLevel] = useState(0);
 
   useEffect(() => {
@@ -177,96 +186,72 @@ function TreeMock({ t }: { t: any }) {
   }, []);
 
   return (
-    <div className="relative aspect-[9/19] w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-[oklch(0.24_0.02_155)] to-[oklch(0.16_0.01_155)] p-3 shadow-[0_60px_120px_-40px_rgb(0_0_0/0.7)] isolation-auto" style={{ clipPath: "inset(0 round 2.5rem)" }}>
+    <div
+      className="relative aspect-[9/19] w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-[oklch(0.24_0.02_155)] to-[oklch(0.16_0.01_155)] p-3 shadow-[0_60px_120px_-40px_rgb(0_0_0/0.7)] isolation-auto"
+      style={{ clipPath: "inset(0 round 2.5rem)" }}
+    >
       {/* Notch */}
       <div className="absolute left-1/2 top-3 z-30 h-5 w-24 -translate-x-1/2 rounded-full bg-black/80" />
-      
+
       {/* Screen */}
-      <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-[oklch(0.13_0.01_155)] flex flex-col items-center justify-end pb-24">
+      <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-black flex flex-col items-center justify-end pb-24">
+        {/* Background Image Sequence */}
+        <div className="absolute inset-0 z-10">
+          <AnimatePresence>
+            <motion.img
+              key={level}
+              src={TREE_IMAGES[level]}
+              alt={`Tree stage ${level}`}
+              className="absolute inset-0 w-full h-full object-cover"
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+            />
+          </AnimatePresence>
+          {/* Dark gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-black/90" />
+        </div>
+
         {/* Faux App Header */}
-        <div className="absolute top-0 left-0 right-0 p-5 z-20 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/50">
+        <div className="absolute top-0 left-0 right-0 p-5 z-20 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/80">
           <span>09:41</span>
           <span>· · ·</span>
         </div>
 
-      {/* Animated Drop Waste */}
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={level}
-          initial={{ y: -200, opacity: 0, rotate: -20 }}
-          animate={{ y: 20, opacity: 1, rotate: 0 }}
-          exit={{ opacity: 0, scale: 0.5, y: 100 }}
-          transition={{ duration: 1.5, type: "spring", bounce: 0.4 }}
-          className="absolute top-10 flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-md shadow-[0_0_30px_rgba(74,222,128,0.3)] z-20"
-        >
-           <Recycle className="h-8 w-8 text-primary" />
-        </motion.div>
-      </AnimatePresence>
+        {/* Animated Drop Waste */}
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={level}
+            initial={{ y: -200, opacity: 0, rotate: -20 }}
+            animate={{ y: 20, opacity: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 100 }}
+            transition={{ duration: 1.5, type: "spring", bounce: 0.4 }}
+            className="absolute top-10 flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md shadow-[0_0_30px_rgba(74,222,128,0.4)] z-20 border border-white/20"
+          >
+            <Recycle className="h-8 w-8 text-primary brightness-150 drop-shadow-md" />
+          </motion.div>
+        </AnimatePresence>
 
-      {/* Tree SVG */}
-      <motion.div 
-        className="relative z-10 w-full"
-        animate={{ scale: 1 + level * 0.15 }}
-        transition={{ type: "spring", bounce: 0.5 }}
-      >
-        <svg viewBox="0 0 200 250" className="w-full h-auto overflow-visible drop-shadow-2xl">
-          {/* Soil */}
-          <path d="M40 250 Q100 230 160 250" stroke="var(--sage)" strokeWidth="4" fill="none" opacity="0.5"/>
-          
-          {/* Trunk */}
-          <motion.path 
-            d="M100 250 Q90 180 100 120" 
-            stroke="var(--sage)" 
-            strokeWidth="14" 
-            strokeLinecap="round" 
-            fill="none" 
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.5 }}
-          />
-
-          {/* Branches & Leaves based on level */}
-          <AnimatePresence>
-            {level >= 1 && (
-              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
-                <path d="M100 180 Q60 140 40 160" stroke="var(--sage)" strokeWidth="8" strokeLinecap="round" fill="none" />
-                <circle cx="40" cy="160" r="15" fill="var(--sage)" opacity="0.9" />
-              </motion.g>
-            )}
-            {level >= 2 && (
-              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
-                <path d="M98 150 Q140 110 160 130" stroke="var(--sage)" strokeWidth="8" strokeLinecap="round" fill="none" />
-                <circle cx="160" cy="130" r="18" fill="var(--sage)" opacity="0.9" />
-              </motion.g>
-            )}
-            {level >= 3 && (
-              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
-                <path d="M100 120 Q80 80 100 50" stroke="var(--sage)" strokeWidth="10" strokeLinecap="round" fill="none" />
-                <circle cx="100" cy="50" r="28" fill="var(--primary)" opacity="0.95" />
-              </motion.g>
-            )}
-            {level >= 4 && (
-              <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
-                <circle cx="70" cy="80" r="22" fill="var(--accent)" opacity="0.9" />
-                <circle cx="130" cy="80" r="22" fill="var(--accent)" opacity="0.9" />
-                <circle cx="100" cy="90" r="26" fill="var(--sage)" opacity="0.9" />
-              </motion.g>
-            )}
-          </AnimatePresence>
-        </svg>
-      </motion.div>
-
-      {/* Stats Overlay */}
-      <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3 z-20">
-        <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
-           <p className="text-[10px] uppercase tracking-widest text-white/50">{t.treeMock.recycled}</p>
-           <p className="font-display mt-1 text-2xl text-foreground"><AnimatedCounter value={level * 120} /> g</p>
+        {/* Stats Overlay */}
+        <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3 z-20">
+          <div className="rounded-2xl border border-white/10 bg-black/50 p-4 backdrop-blur-xl transition-colors hover:bg-black/70">
+            <p className="text-[10px] uppercase tracking-widest text-white/70">
+              {t.treeMock.recycled}
+            </p>
+            <p className="font-display mt-1 text-2xl text-white">
+              <AnimatedCounter value={level * 120} /> g
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/50 p-4 backdrop-blur-xl transition-colors hover:bg-black/70">
+            <p className="text-[10px] uppercase tracking-widest text-white/70">
+              {t.treeMock.treeLvl}
+            </p>
+            <p className="font-display mt-1 text-2xl text-primary drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">
+              {level + 1} / 5
+            </p>
+          </div>
         </div>
-        <div className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-xl transition-colors hover:bg-black/60">
-           <p className="text-[10px] uppercase tracking-widest text-white/50">{t.treeMock.treeLvl}</p>
-           <p className="font-display mt-1 text-2xl text-primary">{level + 1} / 5</p>
-        </div>
-      </div>
       </div>
     </div>
   );

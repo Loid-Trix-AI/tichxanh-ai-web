@@ -55,11 +55,46 @@
     "stat2Label": "Thải ra đại dương mỗi ngày",
     "guideTitle": "Hướng dẫn Phân loại 5 Cấp",
     "categories": [
-      { "name": "Rác Hữu cơ", "label": "Xanh lá" },
-      { "name": "Tái chế được", "label": "Xanh dương" },
-      { "name": "Rác Nhựa", "label": "Vàng" },
-      { "name": "Rác Nguy hại", "label": "Đỏ" },
-      { "name": "Rác khác", "label": "Xám" }
+      {
+        "name": "Rác Hữu cơ",
+        "label": "Xanh lá",
+        "desc": "Rác có thể phân hủy sinh học tự nhiên trong môi trường.",
+        "guide": "Tuyệt đối không bọc trong túi nilon. Hãy sử dụng thùng ủ phân compost chuyên dụng hoặc thùng rác hữu cơ tại địa phương.",
+        "examples": "Thức ăn thừa, rau củ quả hỏng, bã trà, bã cà phê, lá cây, vỏ trứng.",
+        "impact": "Tái chế rác hữu cơ thành phân compost giúp giảm lượng khí nhà kính (Methane) phát thải từ bãi rác và tạo ra nguồn phân bón tự nhiên giàu dinh dưỡng cho đất."
+      },
+      {
+        "name": "Tái chế được",
+        "label": "Xanh dương",
+        "desc": "Các vật liệu sạch và khô có thể được xử lý thành sản phẩm mới.",
+        "guide": "Đảm bảo vật dụng hoàn toàn sạch sẽ và rỗng trước khi phân loại. Gấp gọn các hộp giấy để tiết kiệm diện tích.",
+        "examples": "Giấy sạch, bìa carton, vỏ lon nhôm, chai lọ thủy tinh, hộp đựng thực phẩm sạch.",
+        "impact": "Việc tái chế giúp bảo tồn tài nguyên thiên nhiên, giảm tiêu thụ năng lượng và hạn chế việc khai thác nguyên liệu mới."
+      },
+      {
+        "name": "Rác Nhựa",
+        "label": "Vàng",
+        "desc": "Các loại nhựa (PET, HDPE, v.v.) yêu cầu quy trình tái chế đặc biệt.",
+        "guide": "Đổ sạch chất lỏng bên trong, ép xẹp chai nhựa để tiết kiệm không gian và tháo nắp/nhãn mác nếu có yêu cầu.",
+        "examples": "Chai nước suối (PET), bình sữa (HDPE), chai dầu gội, khay nhựa đựng thức ăn, túi nilon sạch.",
+        "impact": "Tái chế nhựa đúng cách giúp ngăn chặn thảm họa rác thải vi nhựa trong đại dương và giảm phụ thuộc vào nhiên liệu hóa thạch."
+      },
+      {
+        "name": "Rác Nguy hại",
+        "label": "Đỏ",
+        "desc": "Vật liệu chứa hóa chất độc hại, dễ cháy nổ hoặc phản ứng hóa học.",
+        "guide": "KHÔNG BAO GIỜ vứt chung với rác sinh hoạt. Cất trữ an toàn và mang đến các điểm thu gom rác điện tử/nguy hại được chỉ định.",
+        "examples": "Pin các loại, đồ điện tử cũ, bóng đèn huỳnh quang, sơn, dầu nhớt, hóa chất tẩy rửa.",
+        "impact": "Xử lý đúng cách ngăn chặn các kim loại nặng độc hại rò rỉ vào mạch nước ngầm và phá hủy hệ sinh thái."
+      },
+      {
+        "name": "Rác khác",
+        "label": "Xám",
+        "desc": "Rác vô cơ không thể tái chế, sẽ được mang đi chôn lấp hoặc đốt.",
+        "guide": "Phần rác này đi thẳng ra bãi rác. Hãy cố gắng hết sức để hạn chế lượng rác này thông qua thói quen tiêu dùng thông minh.",
+        "examples": "Hộp xốp, hộp pizza dính nhiều dầu mỡ, đồ gốm sứ vỡ, tã lót, khăn giấy đã qua sử dụng.",
+        "impact": "Giảm thiểu lượng rác này giúp kéo dài tuổi thọ của các bãi chôn lấp và giảm lượng khí thải độc hại từ lò đốt rác."
+      }
     ],
     "co2Title": "Phân bổ rác thải hàng năm (Triệu tấn)",
     "countries": {

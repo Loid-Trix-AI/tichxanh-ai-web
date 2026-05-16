@@ -50,7 +50,7 @@ Contains the application's heart: business logic, global services (like error ha
 
 Contains domain-specific components. Each feature is self-contained.
 
-- **Landing:** `HeroSection`, `RealitySection`, `BentoFeatures` (contains `AnimatedCounter` utilizing Framer Motion's `useSpring` and `useInView`), `FounderSection`, `SiteFooter`.
+- **Landing:** `HeroSection` (incorporates scroll-linked video playback with GSAP, pause frames, and fade-to-text transitions), `RealitySection`, `BentoFeatures` (contains `AnimatedCounter` utilizing Framer Motion's `useSpring` and `useInView`), `FounderSection`, `SiteFooter`.
 - **Eco-Bubbles:** `FloatingEcoBubbles`.
 
 ### 3. Shared Layer (`src/shared`)

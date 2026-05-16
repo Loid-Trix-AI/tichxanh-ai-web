@@ -25,10 +25,20 @@ export interface Dictionary {
     rewards: { title: string; body: string };
   };
   downloads: { ready: string; headline: string; subheadline: string; body: string; button: string };
-  founder: { name: string; title: string; location: string; sectionLabel: string; quote: string; tagline: string };
+  founder: {
+    name: string;
+    title: string;
+    location: string;
+    sectionLabel: string;
+    quote: string;
+    tagline: string;
+  };
   reality: {
-    stat1: string; stat1Label: string; stat1Sub: string;
-    stat2: string; stat2Label: string;
+    stat1: string;
+    stat1Label: string;
+    stat1Sub: string;
+    stat2: string;
+    stat2Label: string;
     guideTitle: string;
     categories: WasteCategoryItem[];
     co2Title: string;
