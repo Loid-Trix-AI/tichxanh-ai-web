@@ -171,6 +171,14 @@ export default function BentoFeatures() {
 function TreeMock({ t }: { t: Dictionary }) {
   const [level, setLevel] = useState(0);
 
+  const TREE_IMAGE_STAGES = [
+    TREE_IMAGES.seed,
+    TREE_IMAGES.sprout,
+    TREE_IMAGES.sapling,
+    TREE_IMAGES.youngTree,
+    TREE_IMAGES.matureTree,
+  ];
+
   useEffect(() => {
     const interval = setInterval(() => {
       setLevel((prev) => (prev >= 4 ? 0 : prev + 1));
@@ -193,7 +201,7 @@ function TreeMock({ t }: { t: Dictionary }) {
           <AnimatePresence>
             <motion.img
               key={level}
-              src={TREE_IMAGES[level]}
+              src={TREE_IMAGE_STAGES[level]}
               alt={`Tree stage ${level}`}
               className="absolute inset-0 w-full h-full object-cover"
               initial={{ opacity: 0, scale: 1.1 }}

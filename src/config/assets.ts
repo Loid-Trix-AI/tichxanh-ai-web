@@ -1,12 +1,16 @@
 import { Apple, Recycle, Package, Skull, Trash2 } from "lucide-react";
 
-export const TREE_IMAGES = [
-  "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?q=80&w=600&auto=format&fit=crop", // Soil/Seed
-  "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop", // Sprout
-  "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600&auto=format&fit=crop", // Sapling
-  "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop", // Tree
-  "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=600&auto=format&fit=crop", // Giant Ancient Tree (Lvl 5)
-];
+export const TREE_IMAGES = {
+  seed: "https://i.ibb.co/Fkn0dhtq/96b14fec2920402ca48bb618f13fa244.png",
+  sprout:
+    "https://i.ibb.co/ch4sW14t/b10d94d355c8d4968dd9.jpg",
+  sapling:
+    "https://i.ibb.co/d02qfRzc/5841c39e028583dbda94.jpg",
+  youngTree:
+    "https://i.ibb.co/HfnFc849/0f4b1a94db8f5ad1039e.jpg",
+  matureTree:
+    "https://i.ibb.co/h1VPLbfS/aaf43629f732766c2f23.jpg",
+};
 
 export const IMPACT_IMAGES = {
   communityAction: "https://i.pinimg.com/1200x/b0/13/e9/b013e903c7da80140f8e648a66e47b00.jpg",
