@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { HackerText } from "@/shared/ui/HackerText";
 import { useTranslation } from "@/shared/hooks/use-translation";
+import { IMPACT_IMAGES } from "@/config/assets";
 
 export default function ImpactGallerySection() {
   const { t } = useTranslation();
@@ -11,7 +12,7 @@ export default function ImpactGallerySection() {
       id: 1,
       title: t.impact.items[0].title,
       desc: t.impact.items[0].desc,
-      img: "https://images.unsplash.com/photo-1618477461853-cf6ed80fabe9?auto=format&fit=crop&q=80&w=800",
+      img: IMPACT_IMAGES[0],
       colSpan: "md:col-span-8",
       rowSpan: "md:row-span-2",
     },
@@ -19,7 +20,7 @@ export default function ImpactGallerySection() {
       id: 2,
       title: t.impact.items[1].title,
       desc: t.impact.items[1].desc,
-      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600",
+      img: IMPACT_IMAGES[1],
       colSpan: "md:col-span-4",
       rowSpan: "md:row-span-1",
     },
@@ -27,7 +28,7 @@ export default function ImpactGallerySection() {
       id: 3,
       title: t.impact.items[2].title,
       desc: t.impact.items[2].desc,
-      img: "https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&q=80&w=400",
+      img: IMPACT_IMAGES[2],
       colSpan: "md:col-span-2",
       rowSpan: "md:row-span-1",
     },
@@ -35,7 +36,7 @@ export default function ImpactGallerySection() {
       id: 4,
       title: t.impact.items[3].title,
       desc: t.impact.items[3].desc,
-      img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400",
+      img: IMPACT_IMAGES[3],
       colSpan: "md:col-span-2",
       rowSpan: "md:row-span-1",
     },
