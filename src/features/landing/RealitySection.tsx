@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useTranslation } from "@/shared/hooks/use-translation";
+import { WASTE_CATEGORIES_CONFIG } from "@/config/assets";
 import {
   Apple,
   Recycle,
@@ -44,6 +45,20 @@ export default function RealitySection() {
 
   const [selectedCatIdx, setSelectedCatIdx] = useState<number | null>(null);
   const [isTyping, setIsTyping] = useState(false);
+  const [slideIdx, setSlideIdx] = useState(0);
+
+  // Slideshow timer for the category modal
+  useEffect(() => {
+    if (selectedCatIdx === null) {
+      setSlideIdx(0);
+      return;
+    }
+    const imagesCount = WASTE_CATEGORIES_CONFIG[selectedCatIdx].images.length;
+    const interval = setInterval(() => {
+      setSlideIdx((prev) => (prev + 1) % imagesCount);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [selectedCatIdx]);
 
   // Handle category click and typing simulation
   const handleCategoryClick = (idx: number) => {
