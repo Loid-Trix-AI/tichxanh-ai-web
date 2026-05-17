@@ -9,6 +9,7 @@ import QRDownloadBlock from "./QRDownloadBlock";
 import { HackerText } from "@/shared/ui/HackerText";
 import { useTranslation } from "@/shared/hooks/use-translation";
 import { type Dictionary } from "@/core/services/DictionaryService";
+import { TREE_IMAGES } from "@/config/assets";
 
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -166,14 +167,6 @@ export default function BentoFeatures() {
     </section>
   );
 }
-
-const TREE_IMAGES = [
-  "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?q=80&w=600&auto=format&fit=crop", // Soil/Seed
-  "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop", // Sprout
-  "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600&auto=format&fit=crop", // Sapling
-  "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop", // Tree
-  "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=600&auto=format&fit=crop", // Forest
-];
 
 function TreeMock({ t }: { t: Dictionary }) {
   const [level, setLevel] = useState(0);

@@ -5,14 +5,12 @@ export const TREE_IMAGES = [
   "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop", // Sprout
   "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600&auto=format&fit=crop", // Sapling
   "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop", // Tree
-  "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=600&auto=format&fit=crop", // Forest
+  "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=600&auto=format&fit=crop", // Giant Ancient Tree (Lvl 5)
 ];
 
 export const IMPACT_IMAGES = {
-  communityAction:
-    "https://images.unsplash.com/photo-1618477461853-cf6ed80fabe9?auto=format&fit=crop&q=80&w=800",
-  smartScan:
-    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600",
+  communityAction: "https://i.pinimg.com/1200x/b0/13/e9/b013e903c7da80140f8e648a66e47b00.jpg",
+  smartScan: "https://i.pinimg.com/736x/40/5e/3b/405e3b1b27ac29cebd9befff78dddb86.jpg",
   rewards:
     "https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&q=80&w=400",
   urbanGreenery:
