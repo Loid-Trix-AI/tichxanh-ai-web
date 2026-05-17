@@ -12,14 +12,7 @@ export default function HeroSection() {
 
   const frames = useMemo(
     () =>
-      Array.from(
-        { length: FRAME_COUNT },
-        (_, i) =>
-          `/seq/processed_Bottle_cracks_morphing_into_plastic_202605151159_${String(i + 1).padStart(
-            3,
-            "0",
-          )}.jpg`,
-      ),
+      Array.from({ length: FRAME_COUNT }, (_, i) => `/seq/${String(i + 1).padStart(3, "0")}.jpg`),
     [],
   );
 
