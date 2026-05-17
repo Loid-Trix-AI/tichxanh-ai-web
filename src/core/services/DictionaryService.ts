@@ -63,7 +63,7 @@ function isSupportedLocale(value: unknown): value is Locale {
 
 class DictionaryService {
   private static instance: DictionaryService;
-  private currentLocale: Locale = "en";
+  private currentLocale: Locale = "vi";
   private dictionaries: Record<Locale, Dictionary> = { en, vi };
 
   private constructor() {
@@ -71,7 +71,7 @@ class DictionaryService {
   }
 
   /**
-   * Priority: localStorage → navigator.language → "en"
+   * Priority: localStorage → navigator.language → "vi"
    * Persists user's explicit choice across reloads.
    */
   private detectLocale() {
@@ -84,9 +84,9 @@ class DictionaryService {
       return;
     }
 
-    // 2. Infer from browser language
+    // 2. Infer from browser language (default to 'vi' unless browser language is explicitly 'en')
     const browserLang = navigator.language.toLowerCase();
-    this.currentLocale = browserLang.startsWith("vi") ? "vi" : "en";
+    this.currentLocale = browserLang.startsWith("en") ? "en" : "vi";
   }
 
   public static getInstance(): DictionaryService {
