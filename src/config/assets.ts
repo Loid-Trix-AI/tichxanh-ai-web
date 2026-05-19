@@ -2,14 +2,10 @@ import { Apple, Recycle, Package, Skull, Trash2 } from "lucide-react";
 
 export const TREE_IMAGES = {
   seed: "https://i.ibb.co/Fkn0dhtq/96b14fec2920402ca48bb618f13fa244.png",
-  sprout:
-    "https://i.ibb.co/ch4sW14t/b10d94d355c8d4968dd9.jpg",
-  sapling:
-    "https://i.ibb.co/d02qfRzc/5841c39e028583dbda94.jpg",
-  youngTree:
-    "https://i.ibb.co/HfnFc849/0f4b1a94db8f5ad1039e.jpg",
-  matureTree:
-    "https://i.ibb.co/h1VPLbfS/aaf43629f732766c2f23.jpg",
+  sprout: "https://i.ibb.co/ch4sW14t/b10d94d355c8d4968dd9.jpg",
+  sapling: "https://i.ibb.co/d02qfRzc/5841c39e028583dbda94.jpg",
+  youngTree: "https://i.ibb.co/HfnFc849/0f4b1a94db8f5ad1039e.jpg",
+  matureTree: "https://i.ibb.co/h1VPLbfS/aaf43629f732766c2f23.jpg",
 };
 
 export const IMPACT_IMAGES = {

@@ -6,6 +6,8 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TranslationProvider } from "@/core/TranslationProvider";
+import { useAuthStore } from "@/core/auth/authStore";
+import { Toaster } from "sonner";
 
 function GlobalPreloader() {
   const [isLoading, setIsLoading] = useState(true);
@@ -115,6 +117,9 @@ function RootComponent() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    // Initialize Auth State
+    useAuthStore.getState().initialize();
+
     // Initialize Lenis for premium smooth scroll
     const lenis = new Lenis({
       duration: 1.2,
@@ -146,6 +151,7 @@ function RootComponent() {
     <TranslationProvider>
       <GlobalPreloader />
       <Outlet />
+      <Toaster theme="dark" position="bottom-right" />
     </TranslationProvider>
   );
 }

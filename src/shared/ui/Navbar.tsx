@@ -5,6 +5,7 @@ import { useTranslation } from "@/shared/hooks/use-translation";
 import { Button } from "@/shared/ui/button";
 import { cn } from "@/shared/utils/utils";
 import { X, Menu } from "lucide-react";
+import { useAuthStore } from "@/core/auth/authStore";
 
 /** A single nav link with an animated underline that slides in from the left on hover. */
 const NavLink = ({ href, label }: { href: string; label: string }) => (
@@ -22,6 +23,8 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
+  const session = useAuthStore((state) => state.session);
+  const signOut = useAuthStore((state) => state.signOut);
 
   const { scrollY } = useScroll();
   const backgroundColor = useTransform(
@@ -102,14 +105,28 @@ export const Navbar = () => {
           >
             {locale === "en" ? "VI" : "EN"}
           </button>
-          <Link to="/signup">
+
+          {session ? (
             <Button
               variant="outline"
               className="hidden sm:inline-flex border-primary/20 hover:border-primary/50 text-primary bg-primary/5"
+              onClick={async () => {
+                await signOut();
+                navigate({ to: "/" });
+              }}
             >
-              {t.nav.getRecycling}
+              LOGOUT
             </Button>
-          </Link>
+          ) : (
+            <Link to="/signup">
+              <Button
+                variant="outline"
+                className="hidden sm:inline-flex border-primary/20 hover:border-primary/50 text-primary bg-primary/5"
+              >
+                {t.nav.getRecycling || "SIGN UP"}
+              </Button>
+            </Link>
+          )}
 
           {/* Mobile hamburger */}
           <button
@@ -143,13 +160,26 @@ export const Navbar = () => {
                   {item.label}
                 </button>
               ))}
-              <Link
-                to="/signup"
-                onClick={() => setMobileOpen(false)}
-                className="mt-2 w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background transition-opacity hover:opacity-90"
-              >
-                {t.nav.getRecycling}
-              </Link>
+              {session ? (
+                <button
+                  onClick={async () => {
+                    await signOut();
+                    setMobileOpen(false);
+                    navigate({ to: "/" });
+                  }}
+                  className="mt-2 w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background transition-opacity hover:opacity-90 text-left"
+                >
+                  LOGOUT
+                </button>
+              ) : (
+                <Link
+                  to="/signup"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-2 w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background transition-opacity hover:opacity-90"
+                >
+                  {t.nav.getRecycling || "SIGN UP"}
+                </Link>
+              )}
             </nav>
           </motion.div>
         )}
