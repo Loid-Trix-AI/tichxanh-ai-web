@@ -20,6 +20,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
   const changeLanguage = useCallback((newLocale: Locale) => {
     dictionaryService.setLocale(newLocale);
     setLocale(newLocale);
+    window.location.reload();
   }, []);
 
   return (
