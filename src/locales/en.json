@@ -12,6 +12,31 @@
     "reality": "Reality",
     "downloads": "Downloads"
   },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "google": "Continue with Google",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "welcomeBack": "Welcome back to TichXanh AI",
+    "join": "Join the green revolution",
+    "email": "Email",
+    "password": "Password",
+    "noAccount": "Don't have an account? Sign up",
+    "hasAccount": "Already have an account? Login",
+    "backHome": "← Back to home"
+  },
+  "downloadPage": {
+    "titlePrefix": "Choose your",
+    "titleHighlight": "platform",
+    "body": "Experience the future of waste management on your mobile device.",
+    "googlePlay": "Google Play",
+    "mirror": "Download Mirror",
+    "betaLabel": "Beta Access",
+    "betaTitle": "Early Access Program",
+    "betaBody": "Interested in testing our upcoming features? Join our TestFlight or Android Beta program.",
+    "betaButton": "Apply for Beta"
+  },
   "treeMock": {
     "recycled": "Recycled",
     "treeLvl": "Tree Lvl"

@@ -5,6 +5,7 @@ import { Label } from "@/shared/ui/label";
 import { useState, useEffect } from "react";
 import { supabase } from "@/shared/supabase";
 import { useAuthStore } from "@/core/auth/authStore";
+import { useTranslation } from "@/shared/hooks/use-translation";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/signup")({
@@ -17,6 +18,8 @@ function SignupComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const session = useAuthStore((state) => state.session);
+  const signInWithGoogle = useAuthStore((state) => state.signInWithGoogle);
+  const { t } = useTranslation();
 
   // If already logged in, redirect to home
   useEffect(() => {
@@ -53,14 +56,14 @@ function SignupComponent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md space-y-8 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
         <div className="text-center">
-          <h1 className="text-3xl font-black uppercase tracking-tighter">Sign Up</h1>
+          <h1 className="text-3xl font-black uppercase tracking-tighter">{t.auth.signup}</h1>
           <p className="mt-2 text-sm text-muted-foreground uppercase tracking-widest">
-            Join the green revolution
+            {t.auth.join}
           </p>
         </div>
         <form onSubmit={handleSignup} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t.auth.email}</Label>
             <Input
               id="email"
               type="email"
@@ -71,7 +74,7 @@ function SignupComponent() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t.auth.password}</Label>
             <Input
               id="password"
               type="password"
@@ -82,23 +85,48 @@ function SignupComponent() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Creating Account..." : "Create Account"}
+            {isLoading ? t.auth.creatingAccount : t.auth.signup}
           </Button>
           <div className="text-center">
             <Link
               to="/login"
               className="text-xs uppercase tracking-widest text-primary hover:underline"
             >
-              Already have an account? Login
+              {t.auth.hasAccount}
             </Link>
           </div>
         </form>
+        <div className="my-4 flex items-center gap-3">
+          <div className="h-px flex-1 bg-white/10" />
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            or
+          </span>
+          <div className="h-px flex-1 bg-white/10" />
+        </div>
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full border-primary/20 text-primary bg-primary/5 hover:border-primary/50"
+          disabled={isLoading}
+          onClick={async () => {
+            setIsLoading(true);
+            try {
+              await signInWithGoogle();
+            } catch (error) {
+              const err = error as Error;
+              toast.error(err.message || "Google sign up failed.");
+              setIsLoading(false);
+            }
+          }}
+        >
+          {t.auth.google}
+        </Button>
         <div className="mt-6 text-center">
           <Link
             to="/"
             className="text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
           >
-            ← Back to home
+            {t.auth.backHome}
           </Link>
         </div>
       </div>

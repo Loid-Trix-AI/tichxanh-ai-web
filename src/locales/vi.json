@@ -12,6 +12,31 @@
     "reality": "Thực trạng",
     "downloads": "Tải xuống"
   },
+  "auth": {
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "google": "Tiếp tục với Google",
+    "signingIn": "Đang đăng nhập...",
+    "creatingAccount": "Đang tạo tài khoản...",
+    "welcomeBack": "Chào mừng bạn quay lại TichXanh AI",
+    "join": "Tham gia cuộc cách mạng xanh",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "noAccount": "Chưa có tài khoản? Đăng ký",
+    "hasAccount": "Đã có tài khoản? Đăng nhập",
+    "backHome": "← Về trang chủ"
+  },
+  "downloadPage": {
+    "titlePrefix": "Chọn",
+    "titleHighlight": "nền tảng",
+    "body": "Trải nghiệm tương lai của quản lý rác thải ngay trên thiết bị di động của bạn.",
+    "googlePlay": "Google Play",
+    "mirror": "Tải từ Mirror",
+    "betaLabel": "Truy cập Beta",
+    "betaTitle": "Chương trình dùng thử sớm",
+    "betaBody": "Bạn muốn thử nghiệm các tính năng sắp ra mắt? Hãy tham gia chương trình TestFlight hoặc Android Beta của chúng tôi.",
+    "betaButton": "Đăng ký Beta"
+  },
   "treeMock": {
     "recycled": "Đã tái chế",
     "treeLvl": "Cấp cây"

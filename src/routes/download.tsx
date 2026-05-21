@@ -3,6 +3,8 @@ import { Download, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/shared/ui/Navbar";
 import SiteFooter from "@/features/landing/SiteFooter";
+import { useTranslation } from "@/shared/hooks/use-translation";
+import { trackEvent } from "@/core/services/analytics";
 
 export const Route = createFileRoute("/download")({
   component: DownloadPage,
@@ -29,6 +31,8 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 function DownloadPage() {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -42,46 +46,55 @@ function DownloadPage() {
             <Download className="h-10 w-10" />
           </div>
           <h1 className="group font-display text-5xl font-bold tracking-tight sm:text-7xl cursor-default">
-            Choose your{" "}
+            {t.downloadPage.titlePrefix}{" "}
             <span className="text-primary italic transition-all duration-500 group-hover:font-mono group-hover:tracking-widest">
-              platform
+              {t.downloadPage.titleHighlight}
             </span>
             .
           </h1>
-          <p className="mt-6 text-xl text-muted-foreground">
-            Experience the future of waste management on your mobile device.
-          </p>
+          <p className="mt-6 text-xl text-muted-foreground">{t.downloadPage.body}</p>
 
           <div className="mt-12 flex flex-col items-center justify-center gap-6 sm:flex-row">
             <a
               href="#"
               className="flex w-full items-center justify-center gap-3 rounded-2xl bg-foreground px-8 py-5 text-lg font-bold text-background transition-transform hover:scale-105 sm:w-auto"
+              onClick={() =>
+                void trackEvent({ name: "download_cta_click", metadata: { target: "google_play" } })
+              }
             >
               <Play className="h-6 w-6" />
-              Google Play
+              {t.downloadPage.googlePlay}
             </a>
             <a
               href="https://github.com/Loid-Trix-AI/tichxanh-ai/releases/latest"
               target="_blank"
               rel="noopener noreferrer"
               className="flex w-full items-center justify-center gap-3 rounded-2xl border border-foreground/20 px-8 py-5 text-lg font-bold text-foreground transition-transform hover:scale-105 hover:bg-foreground/5 sm:w-auto"
+              onClick={() =>
+                void trackEvent({
+                  name: "download_cta_click",
+                  metadata: { target: "github_release" },
+                })
+              }
             >
               <GithubIcon className="h-6 w-6" />
-              Download Mirror
+              {t.downloadPage.mirror}
             </a>
           </div>
 
           <div className="mt-20 rounded-3xl border border-white/10 bg-white/5 p-12 backdrop-blur-xl">
             <p className="text-xs font-black uppercase tracking-[0.3em] text-primary">
-              Beta Access
+              {t.downloadPage.betaLabel}
             </p>
-            <h2 className="mt-4 text-2xl font-bold">Early Access Program</h2>
-            <p className="mt-2 text-muted-foreground">
-              Interested in testing our upcoming features? Join our TestFlight or Android Beta
-              program.
-            </p>
-            <button className="mt-6 text-sm font-bold uppercase tracking-widest text-foreground underline decoration-primary underline-offset-8 transition-colors hover:text-primary">
-              Apply for Beta
+            <h2 className="mt-4 text-2xl font-bold">{t.downloadPage.betaTitle}</h2>
+            <p className="mt-2 text-muted-foreground">{t.downloadPage.betaBody}</p>
+            <button
+              onClick={() =>
+                void trackEvent({ name: "download_cta_click", metadata: { target: "beta_apply" } })
+              }
+              className="mt-6 text-sm font-bold uppercase tracking-widest text-foreground underline decoration-primary underline-offset-8 transition-colors hover:text-primary"
+            >
+              {t.downloadPage.betaButton}
             </button>
           </div>
         </motion.div>

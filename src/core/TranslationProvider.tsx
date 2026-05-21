@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
 import { dictionaryService, Locale, Dictionary } from "@/core/services/DictionaryService";
+import { trackEvent } from "@/core/services/analytics";
 
 interface TranslationContextValue {
   t: Dictionary;
@@ -17,11 +18,20 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
   const [locale, setLocale] = useState<Locale>(dictionaryService.getLocale());
   const t = dictionaryService.getDictionary(locale);
 
-  const changeLanguage = useCallback((newLocale: Locale) => {
-    dictionaryService.setLocale(newLocale);
-    setLocale(newLocale);
-    window.location.reload();
-  }, []);
+  const changeLanguage = useCallback(
+    (newLocale: Locale) => {
+      if (newLocale === locale) return;
+
+      dictionaryService.setLocale(newLocale);
+      setLocale(newLocale);
+      void trackEvent({
+        name: "language_change",
+        metadata: { from: locale, to: newLocale },
+      });
+      window.location.reload();
+    },
+    [locale],
+  );
 
   return (
     <TranslationContext.Provider value={{ t, locale, changeLanguage }}>

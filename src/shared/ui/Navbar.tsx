@@ -25,6 +25,7 @@ export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const session = useAuthStore((state) => state.session);
   const signOut = useAuthStore((state) => state.signOut);
+  const signInWithGoogle = useAuthStore((state) => state.signInWithGoogle);
 
   const { scrollY } = useScroll();
   const backgroundColor = useTransform(
@@ -118,14 +119,19 @@ export const Navbar = () => {
               LOGOUT
             </Button>
           ) : (
-            <Link to="/signup">
-              <Button
-                variant="outline"
-                className="hidden sm:inline-flex border-primary/20 hover:border-primary/50 text-primary bg-primary/5"
-              >
-                {t.nav.getRecycling || "SIGN UP"}
-              </Button>
-            </Link>
+            <Button
+              variant="outline"
+              className="hidden sm:inline-flex border-primary/20 hover:border-primary/50 text-primary bg-primary/5"
+              onClick={async () => {
+                try {
+                  await signInWithGoogle();
+                } catch (error) {
+                  console.error(error);
+                }
+              }}
+            >
+              {t.auth.google || "CONTINUE WITH GOOGLE"}
+            </Button>
           )}
 
           {/* Mobile hamburger */}
@@ -172,13 +178,18 @@ export const Navbar = () => {
                   LOGOUT
                 </button>
               ) : (
-                <Link
-                  to="/signup"
-                  onClick={() => setMobileOpen(false)}
-                  className="mt-2 w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background transition-opacity hover:opacity-90"
+                <button
+                  onClick={async () => {
+                    try {
+                      await signInWithGoogle();
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }}
+                  className="mt-2 w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background transition-opacity hover:opacity-90 text-left"
                 >
-                  {t.nav.getRecycling || "SIGN UP"}
-                </Link>
+                  {t.auth.google || "CONTINUE WITH GOOGLE"}
+                </button>
               )}
             </nav>
           </motion.div>

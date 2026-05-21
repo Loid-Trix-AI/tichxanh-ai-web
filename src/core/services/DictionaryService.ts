@@ -16,6 +16,31 @@ export interface GalleryItem {
 export interface Dictionary {
   hero: { redefine: string; value: string; waste: string; scroll: string };
   nav: { home: string; getRecycling: string; features: string; reality: string; downloads: string };
+  auth: {
+    login: string;
+    signup: string;
+    google: string;
+    signingIn: string;
+    creatingAccount: string;
+    welcomeBack: string;
+    join: string;
+    email: string;
+    password: string;
+    noAccount: string;
+    hasAccount: string;
+    backHome: string;
+  };
+  downloadPage: {
+    titlePrefix: string;
+    titleHighlight: string;
+    body: string;
+    googlePlay: string;
+    mirror: string;
+    betaLabel: string;
+    betaTitle: string;
+    betaBody: string;
+    betaButton: string;
+  };
   treeMock: { recycled: string; treeLvl: string };
   features: {
     label: string;

@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { AnalyticsTracker } from "@/core/AnalyticsTracker";
 import { TranslationProvider } from "@/core/TranslationProvider";
 import { useAuthStore } from "@/core/auth/authStore";
 import { Toaster } from "sonner";
@@ -149,9 +152,12 @@ function RootComponent() {
 
   return (
     <TranslationProvider>
+      <AnalyticsTracker />
       <GlobalPreloader />
       <Outlet />
       <Toaster theme="dark" position="bottom-right" />
+      <Analytics />
+      <SpeedInsights />
     </TranslationProvider>
   );
 }
