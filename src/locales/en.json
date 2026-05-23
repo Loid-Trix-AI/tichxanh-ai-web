@@ -24,7 +24,22 @@
     "password": "Password",
     "noAccount": "Don't have an account? Sign up",
     "hasAccount": "Already have an account? Login",
-    "backHome": "← Back to home"
+    "backHome": "← Back to home",
+    "secureBadge": "Secure",
+    "sidebarDashboard": "Eco missions dashboard",
+    "loginSidebarTitle": "Sign in to keep your green streak alive.",
+    "loginSidebarSubtitle": "Track verified waste-sorting missions, protect your points ledger, and sync offline progress when the network is safe.",
+    "signupSidebarTitle": "Sign up to make an impact today.",
+    "signupSidebarSubtitle": "Create an account to start scanning, earning points, and contributing to the local environment in Dong Nai.",
+    "pointsCardLabel": "Trusted final points on client",
+    "syncCardLabel": "Retry-safe idempotent sync",
+    "antiCheatText": "Anti-cheat ready: mission points stay tentative until Supabase validates evidence and ledger entries.",
+    "or": "or",
+    "loginSuccess": "Successfully logged in!",
+    "loginError": "An error occurred during login.",
+    "signupSuccess": "Account created successfully!",
+    "signupError": "An error occurred during sign up.",
+    "googleError": "Google authentication failed."
   },
   "downloadPage": {
     "titlePrefix": "Choose your",

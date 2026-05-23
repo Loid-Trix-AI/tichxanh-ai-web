@@ -24,7 +24,22 @@
     "password": "Mật khẩu",
     "noAccount": "Chưa có tài khoản? Đăng ký",
     "hasAccount": "Đã có tài khoản? Đăng nhập",
-    "backHome": "← Về trang chủ"
+    "backHome": "← Về trang chủ",
+    "secureBadge": "Bảo mật",
+    "sidebarDashboard": "Bảng điều khiển nhiệm vụ xanh",
+    "loginSidebarTitle": "Đăng nhập để duy trì chuỗi sống xanh của bạn.",
+    "loginSidebarSubtitle": "Theo dõi các nhiệm vụ phân loại rác đã xác minh, bảo vệ điểm số và đồng bộ hóa tiến trình ngoại tuyến một cách an toàn.",
+    "signupSidebarTitle": "Đăng ký để tạo ra tác động ngay hôm nay.",
+    "signupSidebarSubtitle": "Tạo tài khoản để bắt đầu quét, tích lũy điểm và đóng góp cho môi trường tại Đồng Nai.",
+    "pointsCardLabel": "Điểm số cuối cùng tin cậy trên thiết bị",
+    "syncCardLabel": "Đồng bộ hóa an toàn chống trùng lặp",
+    "antiCheatText": "Sẵn sàng chống gian lận: điểm nhiệm vụ sẽ ở trạng thái chờ cho đến khi Supabase xác thực minh chứng và ghi nhận vào sổ cái.",
+    "or": "hoặc",
+    "loginSuccess": "Đăng nhập thành công!",
+    "loginError": "Đã xảy ra lỗi khi đăng nhập.",
+    "signupSuccess": "Đăng ký tài khoản thành công!",
+    "signupError": "Đã xảy ra lỗi khi đăng ký.",
+    "googleError": "Xác thực Google thất bại."
   },
   "downloadPage": {
     "titlePrefix": "Chọn",

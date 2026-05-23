@@ -68,9 +68,12 @@ function DownloadPage() {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500">
                 <ShieldAlert className="h-7 w-7" />
               </div>
-              <h2 className="text-2xl font-black uppercase tracking-tight">Authentication Required</h2>
+              <h2 className="text-2xl font-black uppercase tracking-tight">
+                Authentication Required
+              </h2>
               <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-                To protect our release artifacts and ensure secure synchronization with the points ledger, you must be signed in to download the TichXanh AI application.
+                To protect our release artifacts and ensure secure synchronization with the points
+                ledger, you must be signed in to download the TichXanh AI application.
               </p>
               <div className="mt-6">
                 <Button
@@ -88,7 +91,10 @@ function DownloadPage() {
                   href="#"
                   className="flex w-full items-center justify-center gap-3 rounded-2xl bg-foreground px-8 py-5 text-lg font-bold text-background transition-transform hover:scale-105 sm:w-auto"
                   onClick={() =>
-                    void trackEvent({ name: "download_cta_click", metadata: { target: "google_play" } })
+                    void trackEvent({
+                      name: "download_cta_click",
+                      metadata: { target: "google_play" },
+                    })
                   }
                 >
                   <Play className="h-6 w-6" />
@@ -119,7 +125,10 @@ function DownloadPage() {
                 <p className="mt-2 text-muted-foreground">{t.downloadPage.betaBody}</p>
                 <button
                   onClick={() =>
-                    void trackEvent({ name: "download_cta_click", metadata: { target: "beta_apply" } })
+                    void trackEvent({
+                      name: "download_cta_click",
+                      metadata: { target: "beta_apply" },
+                    })
                   }
                   className="mt-6 text-sm font-bold uppercase tracking-widest text-foreground underline decoration-primary underline-offset-8 transition-colors hover:text-primary"
                 >
@@ -134,4 +143,3 @@ function DownloadPage() {
     </div>
   );
 }
-

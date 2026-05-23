@@ -20,7 +20,7 @@ function SignupComponent() {
   const navigate = useNavigate();
   const session = useAuthStore((state) => state.session);
   const signInWithGoogle = useAuthStore((state) => state.signInWithGoogle);
-  const { t } = useTranslation();
+  const { t, locale, changeLanguage } = useTranslation();
 
   // If already logged in, redirect to home
   useEffect(() => {
@@ -42,12 +42,12 @@ function SignupComponent() {
       if (error) {
         toast.error(error.message);
       } else {
-        toast.success("Account created successfully!");
+        toast.success(t.auth.signupSuccess);
         navigate({ to: "/", replace: true });
       }
     } catch (err: unknown) {
       const error = err as Error;
-      toast.error(error.message || "An error occurred during sign up.");
+      toast.error(error.message || t.auth.signupError);
     } finally {
       setIsLoading(false);
     }
@@ -55,6 +55,16 @@ function SignupComponent() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#03130d] text-white">
+      {/* Floating Language Switcher */}
+      <div className="absolute right-6 top-6 z-50">
+        <button
+          onClick={() => changeLanguage(locale === "en" ? "vi" : "en")}
+          className="text-[10px] font-bold uppercase tracking-widest text-emerald-100/60 hover:text-primary transition-colors px-3 py-1.5 border border-white/10 rounded-xl bg-white/5 backdrop-blur-md"
+        >
+          {locale === "en" ? "VI" : "EN"}
+        </button>
+      </div>
+
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(34,197,94,0.28),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(20,184,166,0.18),transparent_32%),linear-gradient(135deg,rgba(5,46,22,0.95),rgba(2,6,23,0.98))]" />
       <div className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background/80 to-transparent" />
@@ -72,26 +82,26 @@ function SignupComponent() {
           <div className="mt-10 max-w-xl space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.24em] text-emerald-200 ring-1 ring-emerald-300/20">
               <Sparkles className="h-3.5 w-3.5" />
-              Eco missions dashboard
+              {t.auth.sidebarDashboard}
             </div>
             <h1 className="text-5xl font-black leading-[0.95] tracking-tighter text-white xl:text-7xl">
-              Sign up to make an impact today.
+              {t.auth.signupSidebarTitle}
             </h1>
             <p className="max-w-lg text-base leading-7 text-emerald-50/70">
-              Create an account to start scanning, earning points, and contributing to the local environment in Dong Nai.
+              {t.auth.signupSidebarSubtitle}
             </p>
 
             <div className="grid max-w-lg grid-cols-2 gap-3 pt-4">
               <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-xl">
                 <p className="text-3xl font-black text-primary">0đ</p>
                 <p className="mt-1 text-xs font-bold uppercase tracking-widest text-emerald-100/60">
-                  Trusted final points on client
+                  {t.auth.pointsCardLabel}
                 </p>
               </div>
               <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-xl">
                 <p className="text-3xl font-black text-cyan-200">2x</p>
                 <p className="mt-1 text-xs font-bold uppercase tracking-widest text-emerald-100/60">
-                  Retry-safe idempotent sync
+                  {t.auth.syncCardLabel}
                 </p>
               </div>
             </div>
@@ -114,7 +124,7 @@ function SignupComponent() {
                   </p>
                 </div>
                 <div className="rounded-full border border-emerald-300/20 bg-emerald-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-100">
-                  Secure
+                  {t.auth.secureBadge}
                 </div>
               </div>
 
@@ -166,7 +176,7 @@ function SignupComponent() {
               <div className="my-6 flex items-center gap-3">
                 <div className="h-px flex-1 bg-white/10" />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-100/45">
-                  or
+                  {t.auth.or}
                 </span>
                 <div className="h-px flex-1 bg-white/10" />
               </div>
@@ -182,7 +192,7 @@ function SignupComponent() {
                     await signInWithGoogle();
                   } catch (error) {
                     const err = error as Error;
-                    toast.error(err.message || "Google sign up failed.");
+                    toast.error(err.message || t.auth.googleError);
                     setIsLoading(false);
                   }
                 }}
@@ -193,10 +203,7 @@ function SignupComponent() {
               <div className="mt-6 rounded-2xl border border-emerald-300/15 bg-emerald-300/[0.06] p-4">
                 <div className="flex gap-3">
                   <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <p className="text-xs leading-5 text-emerald-50/65">
-                    Anti-cheat ready: mission points stay tentative until Supabase validates
-                    evidence and ledger entries.
-                  </p>
+                  <p className="text-xs leading-5 text-emerald-50/65">{t.auth.antiCheatText}</p>
                 </div>
               </div>
 
@@ -221,4 +228,3 @@ function SignupComponent() {
     </main>
   );
 }
-

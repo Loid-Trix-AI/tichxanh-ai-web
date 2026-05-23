@@ -6,6 +6,10 @@ export type Locale = "en" | "vi";
 export interface WasteCategoryItem {
   name: string;
   label: string;
+  desc: string;
+  guide: string;
+  examples: string;
+  impact: string;
 }
 
 export interface GalleryItem {
@@ -29,6 +33,21 @@ export interface Dictionary {
     noAccount: string;
     hasAccount: string;
     backHome: string;
+    secureBadge: string;
+    sidebarDashboard: string;
+    loginSidebarTitle: string;
+    loginSidebarSubtitle: string;
+    signupSidebarTitle: string;
+    signupSidebarSubtitle: string;
+    pointsCardLabel: string;
+    syncCardLabel: string;
+    antiCheatText: string;
+    or: string;
+    loginSuccess: string;
+    loginError: string;
+    signupSuccess: string;
+    signupError: string;
+    googleError: string;
   };
   downloadPage: {
     titlePrefix: string;
