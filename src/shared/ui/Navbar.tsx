@@ -7,15 +7,41 @@ import { cn } from "@/shared/utils/utils";
 import { X, Menu } from "lucide-react";
 import { useAuthStore } from "@/core/auth/authStore";
 
-/** A single nav link with an animated underline that slides in from the left on hover. */
-const NavLink = ({ href, label }: { href: string; label: string }) => (
-  <a
-    href={href}
-    className="group relative inline-flex items-center text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
-  >
-    {label}
-  </a>
-);
+/** A single nav link using TanStack Router's Link to avoid full-page reloads and preserve SPA behavior. */
+const NavLink = ({
+  href,
+  label,
+  hash,
+  onClick,
+}: {
+  href?: string;
+  label: string;
+  hash?: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}) => {
+  if (href) {
+    return (
+      <Link
+        to={href}
+        className="group relative inline-flex items-center text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+        activeProps={{ className: "text-primary" }}
+      >
+        {label}
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      to="/"
+      hash={hash?.substring(1)}
+      onClick={onClick}
+      className="group relative inline-flex items-center text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+    >
+      {label}
+    </Link>
+  );
+};
 
 export const Navbar = () => {
   const { t, locale, changeLanguage } = useTranslation();
@@ -25,7 +51,6 @@ export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const session = useAuthStore((state) => state.session);
   const signOut = useAuthStore((state) => state.signOut);
-  const signInWithGoogle = useAuthStore((state) => state.signInWithGoogle);
 
   const { scrollY } = useScroll();
   const backgroundColor = useTransform(
@@ -52,10 +77,20 @@ export const Navbar = () => {
       if (isHome) {
         const el = document.querySelector(item.hash);
         el?.scrollIntoView({ behavior: "smooth" });
+        window.history.pushState(null, "", item.hash);
       } else {
-        navigate({ to: `/${item.hash}` });
+        navigate({ to: "/", hash: item.hash.substring(1) });
       }
       setMobileOpen(false);
+    }
+  };
+
+  const handleHashClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    if (isHome) {
+      e.preventDefault();
+      const el = document.querySelector(hash);
+      el?.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", hash);
     }
   };
 
@@ -92,8 +127,14 @@ export const Navbar = () => {
           {navLinks.map((item) => (
             <NavLink
               key={item.label}
-              href={item.path || (isHome ? item.hash! : `/${item.hash}`)}
+              href={item.path}
+              hash={item.hash}
               label={item.label}
+              onClick={(e) => {
+                if (item.hash) {
+                  handleHashClick(e, item.hash);
+                }
+              }}
             />
           ))}
         </div>
@@ -119,19 +160,22 @@ export const Navbar = () => {
               LOGOUT
             </Button>
           ) : (
-            <Button
-              variant="outline"
-              className="hidden sm:inline-flex border-primary/20 hover:border-primary/50 text-primary bg-primary/5"
-              onClick={async () => {
-                try {
-                  await signInWithGoogle();
-                } catch (error) {
-                  console.error(error);
-                }
-              }}
-            >
-              {t.auth.google || "CONTINUE WITH GOOGLE"}
-            </Button>
+            <div className="hidden sm:flex items-center gap-2">
+              <Button
+                variant="ghost"
+                className="text-muted-foreground hover:text-foreground text-xs font-bold uppercase tracking-wider h-9"
+                onClick={() => navigate({ to: "/login" })}
+              >
+                {t.auth.login}
+              </Button>
+              <Button
+                variant="outline"
+                className="border-primary/20 hover:border-primary/50 text-primary bg-primary/5 text-xs font-bold uppercase tracking-wider h-9 rounded-xl"
+                onClick={() => navigate({ to: "/signup" })}
+              >
+                {t.auth.signup}
+              </Button>
+            </div>
           )}
 
           {/* Mobile hamburger */}
@@ -178,18 +222,26 @@ export const Navbar = () => {
                   LOGOUT
                 </button>
               ) : (
-                <button
-                  onClick={async () => {
-                    try {
-                      await signInWithGoogle();
-                    } catch (error) {
-                      console.error(error);
-                    }
-                  }}
-                  className="mt-2 w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background transition-opacity hover:opacity-90 text-left"
-                >
-                  {t.auth.google || "CONTINUE WITH GOOGLE"}
-                </button>
+                <div className="flex flex-col gap-3 mt-2">
+                  <button
+                    onClick={() => {
+                      setMobileOpen(false);
+                      navigate({ to: "/login" });
+                    }}
+                    className="w-full text-left text-sm font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground py-2"
+                  >
+                    {t.auth.login}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMobileOpen(false);
+                      navigate({ to: "/signup" });
+                    }}
+                    className="w-full text-center rounded-xl bg-primary px-6 py-2.5 text-sm font-bold text-background transition-opacity hover:opacity-90"
+                  >
+                    {t.auth.signup}
+                  </button>
+                </div>
               )}
             </nav>
           </motion.div>
